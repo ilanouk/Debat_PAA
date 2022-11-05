@@ -105,7 +105,12 @@ public class Main {
             }
             if (choix ==3){// Verifier la solution
                 for(int b=0 ; b<listeArgument.size() ; i++ ){
-
+                    // s'il existe contradiction(argA, argB)==contradiction(argB, argA)
+                    //  System.out.println(argA + " et " + argB + " se contredisent")
+                    //  if(argument pas défendu contre ses contradictions)
+                    //      System.out.println("Argument non défendu")
+                    //
+                    // sinon System.out.println("Solution admissible");
                 }
             }
             if (choix ==4){ //Fin
