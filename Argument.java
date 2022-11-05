@@ -2,12 +2,12 @@ import java.util.ArrayList;
 
 public class Argument{
     private String titre;
-    private ArrayList<Argument> listeFils;
+    private ArrayList<Contradiction> listeContradiction;
     private ArrayList<Argument> listeParents;
 
     public Argument(String titre){
         this.titre=titre;
-        listeFils= new ArrayList<>();
+        listeContradiction = new ArrayList<>();
         listeParents= new ArrayList<>();
 
     }
@@ -16,18 +16,35 @@ public class Argument{
         listeParents.add(parent);
     }
 
-    public void addFils(Argument fils){
-        listeFils.add(fils);
+    public void addContradiciton(Contradiction c){
+        listeContradiction.add(c);
     }
 
     public ArrayList<Argument> getlisteParent(){
         return listeParents;
     }
 
-    public ArrayList<Argument> getlistFils(){
-        return listeFils;
+    public ArrayList<Contradiction> getlistContradiction(){
+        return listeContradiction;
     }
     public String getTitre(){
         return titre;
+    }
+
+    public String toString(){
+        return titre;
+    }
+
+    public boolean isEqual(String titre){
+        if (this.titre.equals(titre)){
+            return true; 
+
+        }
+        else{
+            return false;
+        }
+    }
+    public Contradiction getContradiction(int i){
+        return listeContradiction.get(i);
     }
 }
