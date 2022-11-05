@@ -67,7 +67,6 @@ public class Main {
             		listeArgument.add(new Argument(argu));	
             	    }
             	}
-            }
             System.out.println(listeArgument);
             if (choix ==2){// supprimer un argument
             	System.out.println("Donnez l'argument que vous voulez supprimer :");
@@ -92,7 +91,11 @@ public class Main {
             }
         }
     }
+<<<<<<< Updated upstream
 }
 
 
+>>>>>>> Stashed changes
+=======
+}
 >>>>>>> Stashed changes
