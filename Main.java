@@ -103,7 +103,7 @@ public class Main {
                 boucle = false;
             }
             
-      }
+      }sc.close();
         
     
     }
