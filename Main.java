@@ -18,6 +18,7 @@ public class Main {
         //System.out.println(listeArgument);
 
         while (boucle){
+            System.out.println(listeArgument);
             System.out.println("1) Ajouter une contradiction \n 2) Fin");
             int choix = sc.nextInt(); // On sticke ici le choix de l'utilistateur
             if (choix == 1){ //Ajouter une contradiction
@@ -104,14 +105,43 @@ public class Main {
             System.out.println(listeArgument);
             }
             if (choix ==3){// Verifier la solution
-                for(int b=0 ; b<listeArgument.size() ; i++ ){
-                    // s'il existe contradiction(argA, argB)==contradiction(argB, argA)
-                    //  System.out.println(argA + " et " + argB + " se contredisent")
-                    //  if(argument pas défendu contre ses contradictions)
-                    //      System.out.println("Argument non défendu")
-                    //
-                    // sinon System.out.println("Solution admissible");
+                boolean contre = false;
+                Argument premArg = null ;
+                Argument deuxArg = null;
+
+                //Si l'ensemble est vide ou avec 1 argument => solution admissible
+                if(listeArgument.isEmpty() || listeArgument.size()==1){
+                    System.out.println("Solution admissible");
                 }
+                else {
+                    for(int b=0 ; b<listeArgument.size()-1 && contre==false ; b++ ){
+                        // s'il existe contradiction(argA, argB)==contradiction(argB, argA)
+                        //  System.out.println(argA + " et " + argB + " se contredisent");
+                        //  if(argument pas défendu contre ses contradictions)
+                        //      System.out.println("Argument non défendu")
+                        //
+                        // sinon System.out.println("Solution admissible");
+                        Argument argA = listeArgument.get(b);
+                        Argument argB = listeArgument.get(b+1);
+
+                        // Parcourir toutes les contradictions d'un des 2 arguments de l'ensemble
+                        for( int idx=0 ; idx<argA.getlistContradiction().size() || idx<argB.getlistContradiction().size() ; idx++ ){
+                            if( argA.getContradiction(idx).equals(argB.getContradiction(idx)) ){
+                                contre = true;
+                                premArg = argA;
+                                deuxArg = argB;
+                                break;
+                            }
+                        }
+                    }
+                    if(contre){
+                        System.out.println(premArg + " et " + deuxArg + " se contredisent");
+                    }
+                    else{ 
+                        System.out.println("Solution admissible");
+                    }
+                }
+
             }
             if (choix ==4){ //Fin
                 boucle = false;
