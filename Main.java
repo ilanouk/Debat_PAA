@@ -50,7 +50,49 @@ public class Main {
 
 
 
+<<<<<<< Updated upstream
             sc.close();
         }
     }
 }
+=======
+            if (choix ==1){ //ajouter un argument
+            	System.out.println("Donnez l'argument que vous voulez ajouter :");
+            	argu = sc.next();
+            	for(int j = 0 ; j<listeArgument.size();j++) {
+            		if (listeArgument.get(j).isEqual(argu)) {
+            			System.out.println("Argument déjà ajouter");
+            		
+            	    } else {
+            		listeArgument.add(new Argument(argu));	
+            	    }
+            	}
+            }
+            System.out.println(listeArgument);
+            if (choix ==2){// supprimer un argument
+            	System.out.println("Donnez l'argument que vous voulez supprimer :");
+            	argu = sc.next();
+            	for(int k = 0 ; k<listeArgument.size();k++) {
+            		if (listeArgument.get(k).isEqual(argu)) {
+            			listeArgument.remove(k);
+            		
+            	    } else {
+            	    	System.out.println("Argument n'est pas dans la liste ou déjà supprimé");
+            	    }	
+                
+                }
+            System.out.println(listeArgument);
+            }
+                
+            if (choix ==3){// Verifier la solution
+                
+            }
+            if (choix ==4){ //Fin
+                boucle = false;
+            }
+        }
+    }
+}
+
+
+>>>>>>> Stashed changes
