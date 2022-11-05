@@ -44,4 +44,7 @@ public class Argument{
             return false;
         }
     }
+    public Contradiction getContradiction(int i){
+        return listeContradiction.get(i);
+    }
 }

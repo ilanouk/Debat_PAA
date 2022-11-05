@@ -18,34 +18,32 @@ public class Main {
         while (boucle){
             System.out.println("1) Ajouter une contradiction \n 2) Fin");
             int choix = sc.nextInt(); // On sticke ici le choix de l'utilistateur
-
             if (choix == 1){ //Ajouter une contradiction
 
-                System.out.println("Entrez l'argument cible puis l'argument qu'il contredit ex : cible A1");
-                String contradiction = sc.next();
-                StringTokenizer stContradiction = new StringTokenizer(contradiction);
-
-                String strDepart = stContradiction.nextToken();
-                String strArrivee = stContradiction.nextToken();
+                System.out.println("Entrez l'argument cible puis l'argument qu'il contredit ex : A0 A1");
+                String strDepart = sc.next();
+                String strArrivee = sc.next();
                 
                 Argument argDepart=null;
                 Argument argArrivee=null;
                 
                 for(i=0;i<listeArgument.size();i++){ //Dans cette boucle, on ajoute une contradiction entre les arguments donné par l'utilisateur
-                    if (listeArgument.get(i).isEqual(strDepart)){
+                    if (listeArgument.get(i).isEqual(strDepart)){ // on cherche quel argument est associé au titre rentreé
                         argDepart= listeArgument.get(i);
                     }
-                    if (listeArgument.get(i).isEqual(strArrivee)){
+                    if (listeArgument.get(i).isEqual(strArrivee)){ // on cherche quel argument est associé au titre rentreé
                         argArrivee= listeArgument.get(i);
                     }
-                    if (argArrivee!=null && argDepart!=null){
-
-                        argDepart.addContradiciton(new Contradiction(argDepart, argArrivee));
-                    }
-                    else{
-                        System.out.println("Les arguments rentrés n'existe pas");
-                    }
                     
+                    
+                }
+                if (argArrivee!=null && argDepart!=null){//on crée une contradiction entre les titres rentrés
+
+                    argDepart.addContradiciton(new Contradiction(argDepart, argArrivee));
+                    argArrivee.addParent(argDepart);
+                }
+                else{
+                    System.out.println("Les arguments rentrés n'existe pas");
                 }
                 
                 
@@ -55,6 +53,7 @@ public class Main {
 
             if (choix == 2 ){ //FIN
                 boucle = false;
+                //System.out.println(listeArgument.get(1).getlistContradiction());
             }
 
 
@@ -64,7 +63,7 @@ public class Main {
 
         boucle = true;
         while(boucle){
-            System.out.println("1) Ajouter un argument \n 2)retirer un argument \n Verifier la solution \n fin");
+            System.out.println("1) Ajouter un argument \n 2)retirer un argument \n 3) Verifier la solution \n 4) fin");
             int choix = sc.nextInt();
 
             if (choix ==1){ //ajouter un argument

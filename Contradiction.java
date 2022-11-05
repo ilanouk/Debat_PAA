@@ -13,4 +13,7 @@ public class Contradiction {
     public Argument getArrivee(){
         return arrivee;
     }
+    public String toString(){
+        return depart +" "+ arrivee;
+    }
 }
