@@ -66,38 +66,47 @@ public class Main {
         while(boucle){
             System.out.println("1) Ajouter un argument \n 2)retirer un argument \n 3) Verifier la solution \n 4) fin");
             int choix = sc.nextInt();
-
+            boolean ajout = false;
             String argu ;
 
             if (choix ==1){//ajouter un argument
+                System.out.println(listeArgument);
             	System.out.println("Donnez l'argument que vous voulez ajouter :");
             	argu = sc.next();
             	for(int j = 0 ; j<listeArgument.size();j++) {
             		if (listeArgument.get(j).isEqual(argu)) {
-            			System.out.println("Argument déjà ajouter");
-            		
-            	    } else {
-            		listeArgument.add(new Argument(argu));	
+            			ajout=true;
             	    }
-            	}
-            }
+                }
+                if(ajout){ // Si ajout==true, alors argument deja ajouté a la liste
+                    System.out.println("Argument déjà ajouté");}
+                else {
+                    listeArgument.add(new Argument(argu));	
+                }
             System.out.println(listeArgument);
+            }
             if (choix ==2){// supprimer un argument
+                boolean refus = false;
+                System.out.println(listeArgument);
             	System.out.println("Donnez l'argument que vous voulez supprimer :");
             	argu = sc.next();
             	for(int k = 0 ; k<listeArgument.size();k++) {
             		if (listeArgument.get(k).isEqual(argu)) {
+                        refus = true;
             			listeArgument.remove(k);
             		
-            	    } else {
-            	    	System.out.println("Argument n'est pas dans la liste ou déjà supprimé");
-            	    }	
-                
+            	    } 
                 }
+                if(!refus){
+                    System.out.println("Argument n'est pas dans la liste ou déjà supprimé");
+                }
+
             System.out.println(listeArgument);
             }
             if (choix ==3){// Verifier la solution
-                
+                for(int b=0 ; b<listeArgument.size() ; i++ ){
+
+                }
             }
             if (choix ==4){ //Fin
                 boucle = false;
