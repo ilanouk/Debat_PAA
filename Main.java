@@ -113,9 +113,12 @@ public class Main {
                 Argument deuxArg = null;
 
                 //Si l'ensemble est vide => solution admissible
-                if( listeArgument.isEmpty() || listeArgument.size()==1){
-                    System.out.println("Solution admissible 1");
+                if( listeArgument.isEmpty() ){
+                    System.out.println("Solution admissible 1 : []");
                     break;
+                }
+                if (listeArgument.size()==1){
+                    System.out.println("Solution admissible : ["+ listeArgument.get(0)+"]");
                 }
 
                 //Rechecher si 2 arguments se contredisent
