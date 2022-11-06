@@ -140,7 +140,7 @@ public class Main {
                 // Rechercher si un argument n'est pas défendu face à toutes ses contradictions
                 for( int idx1=0 ; idx1<listeArgument.size() ; idx1++ ){ // idx1 = argument
                     for( int idx2=0 ; idx2<listeArgument.get(idx1).getlistContradiction().size() ; idx2++){ // idx2 = contradiction de idx1
-                        if( listeArgument.get(idx1).getContradiction(idx2)){
+                        if( listeArgument.get(idx1).getContradiction(idx2).getArrivee() ){
                             incorrect = true;
                             premArg = listeArgument.get(idx1);
                             break;
