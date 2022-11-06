@@ -19,7 +19,7 @@ public class Main {
 
         while (boucle){
             System.out.println(listeArgument);
-            System.out.println("1) Ajouter une contradiction \n 2) Fin");
+            System.out.println("1) Ajouter une contradiction \n2) Fin");
             int choix = sc.nextInt(); // On sticke ici le choix de l'utilistateur
             if (choix == 1){ //Ajouter une contradiction
 
@@ -65,7 +65,7 @@ public class Main {
 
         boucle = true;
         while(boucle){
-            System.out.println("1) Ajouter un argument \n 2)retirer un argument \n 3) Verifier la solution \n 4) fin");
+            System.out.println("1) Ajouter un argument \n2)retirer un argument \n3) Verifier la solution \n4) fin");
             int choix = sc.nextInt();
             boolean ajout = false;
             String argu ;
@@ -119,48 +119,38 @@ public class Main {
                 }
 
                 //Rechecher si 2 arguments se contredisent
-                int idx3=0;
-                int idx4=1;
-                for( int idx1=0 ; idx1<listeArgument.size() ; idx1++ ){ //idx1==argument1 ; idx2==contradiction de idx1 ; idx4==argument2 ;
-                    for( int idx2=0 ; idx2<listeArgument.get(idx1).getlistContradiction().size() ; idx2++ ){
-                            if(listeArgument.get(idx4).getlistContradiction().contains(listeArgument.get(idx1).getContradiction(idx2)) && listeArgument.get(idx1).getlistContradiction().contains(listeArgument.get(idx4).getContradiction(idx3))){
+            
+                for( int arg1=0, arg2=1; arg1<listeArgument.size() && arg2<listeArgument.size(); arg1++, arg2++ ){
+                    for( int contr1=0, contr2=0 ; contr1<listeArgument.get(arg1).getlistContradiction().size() && contr2<listeArgument.get(arg2).getlistContradiction().size() ; contr1++, contr2++ ){
+                            if(listeArgument.get(arg2).getlistContradiction().contains(listeArgument.get(arg1)) && listeArgument.get(arg1).getlistContradiction().contains(listeArgument.get(arg2))){
                                 incorrect=true;
-                                premArg=listeArgument.get(idx1);
-                                deuxArg=listeArgument.get(idx2);
-                                break;
+                                premArg=listeArgument.get(arg1);
+                                deuxArg=listeArgument.get(arg2);
+                                System.out.println(premArg +" et "+ deuxArg + " se contredisent");
                             }
 
-                            else { // Sinon on stock le 1er argument dans la solution admissible    
-                                idx3++;
-                                idx4++;
+                            else { // Sinon on stock le 1er argument dans la solution admissible
                                 while(idxSol<solAdmissible.size()){ // Chercher l'index pour insérer les arguments
                                     idxSol++;
                                 }
-                                solAdmissible.add(idxSol, listeArgument.get(idx1));
+                                solAdmissible.add(idxSol, listeArgument.get(arg1));
                             }
                     }
                 }
 
-                if( incorrect ){
-                    System.out.println(premArg +" et "+ deuxArg + " se contredisent");
-                }
-
                 // Rechercher si un argument n'est pas défendu face à toutes ses contradictions
-                for( int idx1=0 ; idx1<listeArgument.size() ; idx1++ ){ // idx1 = argument
-                    for( int idx2=0 ; idx2<listeArgument.get(idx1).getlistContradiction().size() ; idx2++){ // idx2 = contradiction de idx1
-                        if( listeArgument.get(idx1).getContradiction(idx2).getArrivee()==null ){
+                for( int arg1=0 ; arg1<listeArgument.size() ; arg1++ ){
+                    for( int contr1=0 ; contr1<listeArgument.get(arg1).getlistContradiction().size() ; contr1++){ 
+                        if( listeArgument.get(arg1).getContradiction(contr1).getArrivee()==null ){
                             incorrect = true;
-                            premArg = listeArgument.get(idx1);
-                            break;
+                            premArg = listeArgument.get(arg1);
+                            System.out.println(premArg + " non défendu");
                         }
                     }
                     if(incorrect) break; //Sortie de boucle
                 }               
-                if(incorrect){
-                    System.out.println(premArg + " non défendu");
-                } 
-                else{
-                    System.out.println("Solution admissible 2");
+                if(!incorrect){
+                    System.out.println("Solution admissible 2 \n"+ "solution admissible : "+solAdmissible);
                 }
 
             }
