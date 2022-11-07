@@ -113,22 +113,20 @@ public class Main {
                 Argument deuxArg = null;
 
                 //Si l'ensemble est vide => solution admissible
-                if( listeArgument.isEmpty() ){
-                    System.out.println("Solution admissible 1 : []");
+                if( listeArgument.isEmpty() || listeArgument.size()==1){
+                    System.out.println("Solution admissible 1");
                     break;
-                }
-                if (listeArgument.size()==1){
-                    System.out.println("Solution admissible : ["+ listeArgument.get(0)+"]");
                 }
 
                 //Rechecher si 2 arguments se contredisent
             
-                for( int arg1=0, arg2=1; arg1<listeArgument.size() && arg2<listeArgument.size(); arg1++, arg2++ ){
-                    for( int contr1=0, contr2=0 ; contr1<listeArgument.get(arg1).getlistContradiction().size() && contr2<listeArgument.get(arg2).getlistContradiction().size() ; contr1++, contr2++ ){
-                            if(listeArgument.get(arg2).getlistContradiction().contains(listeArgument.get(arg1)) && listeArgument.get(arg1).getlistContradiction().contains(listeArgument.get(arg2))){
+                for( Argument arg1 : listeArgument ){
+                    for( Argument arg2 : listeArgument ){
+
+                            if( arg1.getlistContradiction().contains(arg2) && arg2.getlistContradiction().contains(arg1) ){
                                 incorrect=true;
-                                premArg=listeArgument.get(arg1);
-                                deuxArg=listeArgument.get(arg2);
+                                premArg=arg1;
+                                deuxArg=arg2;
                                 System.out.println(premArg +" et "+ deuxArg + " se contredisent");
                             }
 
@@ -136,17 +134,17 @@ public class Main {
                                 while(idxSol<solAdmissible.size()){ // Chercher l'index pour insérer les arguments
                                     idxSol++;
                                 }
-                                solAdmissible.add(idxSol, listeArgument.get(arg1));
+                                solAdmissible.add(idxSol, arg1);
                             }
                     }
                 }
 
                 // Rechercher si un argument n'est pas défendu face à toutes ses contradictions
-                for( int arg1=0 ; arg1<listeArgument.size() ; arg1++ ){
-                    for( int contr1=0 ; contr1<listeArgument.get(arg1).getlistContradiction().size() ; contr1++){ 
-                        if( listeArgument.get(arg1).getContradiction(contr1).getArrivee()==null ){
+                for( Argument arg1 : listeArgument ){
+                    for( Contradiction contr1 : arg1.getlistContradiction() ){ 
+                        if( contr1.getArrivee()==null ){
                             incorrect = true;
-                            premArg = listeArgument.get(arg1);
+                            premArg = arg1;
                             System.out.println(premArg + " non défendu");
                         }
                     }
