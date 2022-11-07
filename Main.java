@@ -109,8 +109,6 @@ public class Main {
                 ArrayList<Argument> solAdmissible = new ArrayList<>(); //Stock les arguments admissibles
                 int idxSol = 0;
                 boolean incorrect = false;
-                Argument premArg = null ;
-                Argument deuxArg = null;
 
                 //Si l'ensemble est vide => solution admissible
                 if( listeArgument.isEmpty() || listeArgument.size()==1){
@@ -119,23 +117,24 @@ public class Main {
                 }
 
                 //Rechecher si 2 arguments se contredisent
-            
+                int idx = 0;
                 for( Argument arg1 : listeArgument ){
-                    for( Argument arg2 : listeArgument ){
+                    for( Argument arg2 : listeArgument){
 
-                            if( arg1.getlistContradiction().contains(arg2) && arg2.getlistContradiction().contains(arg1) ){
-                                incorrect=true;
-                                premArg=arg1;
-                                deuxArg=arg2;
-                                System.out.println(premArg +" et "+ deuxArg + " se contredisent");
-                            }
+                        Contradiction contr2 = arg2.getContradiction(idx);
+                        Contradiction contr1 = arg1.getContradiction(idx);
 
-                            else { // Sinon on stock le 1er argument dans la solution admissible
-                                while(idxSol<solAdmissible.size()){ // Chercher l'index pour insérer les arguments
-                                    idxSol++;
-                                }
-                                solAdmissible.add(idxSol, arg1);
+                        if( arg1.getlistContradiction().contains(contr2) && arg2.getlistContradiction().contains(contr1) && arg1!=arg2 ){
+                            incorrect=true;
+                            System.out.println(arg1 +" et "+ arg2 + " se contredisent");
+                        }
+
+                        else { // Sinon on stock le 1er argument dans la solution admissible
+                            while(idxSol<solAdmissible.size() && !solAdmissible.contains(arg1)){ // Chercher l'index pour insérer les arguments
+                                idxSol++;
                             }
+                            solAdmissible.add(idxSol, arg1);
+                        }
                     }
                 }
 
@@ -144,8 +143,7 @@ public class Main {
                     for( Contradiction contr1 : arg1.getlistContradiction() ){ 
                         if( contr1.getArrivee()==null ){
                             incorrect = true;
-                            premArg = arg1;
-                            System.out.println(premArg + " non défendu");
+                            System.out.println(arg1 + " non défendu");
                         }
                     }
                     if(incorrect) break; //Sortie de boucle
