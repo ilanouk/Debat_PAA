@@ -28,23 +28,28 @@ public class Main {
                 String strDepart = sc.next();
                 String strArrivee = sc.next();
                 
+                int idxargArrivee=-1;
+                int idxargDepart=-1;
+
                 Argument argDepart=null;
                 Argument argArrivee=null;
                 
                 for(i=0;i<listeArgument.size();i++){ //Dans cette boucle, on ajoute une contradiction entre les arguments donné par l'utilisateur
                     if (listeArgument.get(i).isEqual(strDepart)){ // on cherche quel argument est associé au titre rentreé
-                        argDepart= listeArgument.get(i);
+                        idxargDepart=i;
+                        argArrivee = listeArgument.get(i);
                     }
                     if (listeArgument.get(i).isEqual(strArrivee)){ // on cherche quel argument est associé au titre rentreé
-                        argArrivee= listeArgument.get(i);
+                        idxargArrivee= i;
+                        argDepart = listeArgument.get(i);
                     }
                     
                     
                 }
                 if (argArrivee!=null && argDepart!=null){//on crée une contradiction entre les titres rentrés
 
-                    argDepart.addContradiciton(new Contradiction(argDepart, argArrivee));
-                    argArrivee.addParent(argDepart);
+                    listeArgument.get(idxargDepart).addContradiciton(new Contradiction(argDepart, argArrivee));
+                    listeArgument.get(idxargArrivee).addParent(argDepart);
                 }
                 else{
                     System.out.println("Les arguments rentrés n'existe pas");
@@ -72,33 +77,39 @@ public class Main {
             String argu ;
 
             if (choix ==1){//ajouter un argument
-            boolean contientArgu = false;
+                boolean contientArgu = false;
                 System.out.println(listeArgument);
-                 System.out.println("Ensemble à verifier " +EnsembleE);
+                System.out.println("Ensemble à verifier " +EnsembleE);
             	System.out.println("Donnez l'argument que vous voulez ajouter :");
             	argu = sc.next();
 
                 for(int j = 0 ; j<listeArgument.size();j++) {
             		if (listeArgument.get(j).isEqual(argu)) {
+                        System.out.println("test");;
             			contientArgu = true;
             	    }
                 }
-                    if (contientArgu){
-                        for(int j = 0 ; j<Ensemble.size();j++) {
-                            if (EnsembleE.get(j).isEqual(argu)) {
-                                ajout=true;
-                            }
+                if (contientArgu){
+                    for(int j = 0 ; j<EnsembleE.size();j++) {
+                        if (EnsembleE.get(j).isEqual(argu)) {
+                            ajout=true;
+                        }
                     }
-                    
-                            
+                       
+                }
+                else{
+                    System.out.println("L'argument n'existe pas");
                 }
             	
-                if(ajout){ // Si ajout==true, alors argument deja ajouté a la liste
-                    System.out.println("Argument déjà ajouté");}
+                if(ajout || !contientArgu){ // Si ajout==true, alors argument deja ajouté a la liste
+                    System.out.println("Argument déjà ajouté ou inexistant");
+                }
                 else {
                     EnsembleE.add(new Argument(argu));	
                 }
             System.out.println(listeArgument);
+            System.out.println("Ensemble à verifier " +EnsembleE);
+
             }
             if (choix ==2){// supprimer un argument
                 boolean refus = false;
@@ -109,7 +120,7 @@ public class Main {
             	for(int k = 0 ; k<EnsembleE.size();k++) {
             		if (EnsembleE.get(k).isEqual(argu)) {
                         refus = true;
-            			listeArgument.remove(k);
+            			EnsembleE.remove(k);
             		
             	    } 
                 }
@@ -118,53 +129,79 @@ public class Main {
                 }
 
             System.out.println(listeArgument);
+            System.out.println("Ensemble à verifier " +EnsembleE);
+
             }
 
             if (choix ==3){// Verifier la solution
-                ArrayList<Argument> solAdmissible = new ArrayList<>(); //Stock les arguments admissibles
-                int idxSol = 0;
-                boolean incorrect = false;
+                boolean admissible = true;
 
                 //Si l'ensemble est vide => solution admissible
-                if( listeArgument.isEmpty() || listeArgument.size()==1){
-                    System.out.println("Solution admissible 1");
+                if( EnsembleE.isEmpty()){
+                    System.out.println("Solution admissible car ensemble vide");
                     break;
                 }
 
-                //Rechecher si 2 arguments se contredisent
-                int idx = 0;
-                for( Argument arg1 : listeArgument ){
-                    for( Argument arg2 : listeArgument){
-
-                        Contradiction contr2 = arg2.getContradiction(idx);
-                        Contradiction contr1 = arg1.getContradiction(idx);
-
-                        if( arg1.getlistContradiction().contains(contr2) && arg2.getlistContradiction().contains(contr1) && arg1!=arg2 ){
-                            incorrect=true;
-                            System.out.println(arg1 +" et "+ arg2 + " se contredisent");
-                        }
-
-                        else { // Sinon on stock le 1er argument dans la solution admissible
-                            while(idxSol<solAdmissible.size() && !solAdmissible.contains(arg1)){ // Chercher l'index pour insérer les arguments
-                                idxSol++;
-                            }
-                            solAdmissible.add(idxSol, arg1);
-                        }
-                    }
+                //Si l'ensemble a qu'un argument
+                if(EnsembleE.size()==1){
+                    System.out.println("["+EnsembleE.get(0)+"] est une solution admissible");
                 }
+                else{
+                    //Rechecher si 2 arguments se contredisent
+                    for( Argument arg1 : EnsembleE){
+                        for( Contradiction contr1 : arg1.getlistContradiction() ){
 
-                // Rechercher si un argument n'est pas défendu face à toutes ses contradictions
-                for( Argument arg1 : listeArgument ){
-                    for( Contradiction contr1 : arg1.getlistContradiction() ){ 
-                        if( contr1.getArrivee()==null ){
-                            incorrect = true;
-                            System.out.println(arg1 + " non défendu");
+                            Argument arg2 = contr1.getArrivee();
+                            
+                                Contradiction c1 = new Contradiction(arg2, arg1);
+                                if( arg2.getlistContradiction().contains(c1)){
+                                    admissible=false;
+                                    System.out.println(arg1 + " et " + arg2 + " se contredisent");
+                                }
+                            
                         }
                     }
-                    if(incorrect) break; //Sortie de boucle
-                }               
-                if(!incorrect){
-                    System.out.println("Solution admissible 2 \n"+ "solution admissible : "+solAdmissible);
+
+                    if( admissible ){
+                        System.out.println("La solution "+ EnsembleE + " est admissible");
+                    }
+
+                    /*int idx = 0;
+                    for( Argument arg1 : EnsembleE ){
+                        for( Argument arg2 : EnsembleE){
+
+                            Contradiction contr2 = arg2.getContradiction(idx);
+                            Contradiction contr1 = arg1.getContradiction(idx);
+
+                            if( arg1.getlistContradiction().contains(contr2) && arg2.getlistContradiction().contains(contr1) && arg1!=arg2 ){
+                                incorrect=true;
+                                System.out.println(arg1 +" et "+ arg2 + " se contredisent");
+                            }
+
+                            else { // Sinon on stock le 1er argument dans la solution admissible
+                                while(idxSol<solAdmissible.size() && !solAdmissible.contains(arg1)){ // Chercher l'index pour insérer les arguments
+                                    idxSol++;
+                                }
+                                solAdmissible.add(idxSol, arg1);
+                            }
+                        }
+                    }*/
+
+                    // Rechercher si un argument n'est pas défendu face à toutes ses contradictions
+
+
+                    /*for( Argument arg1 : EnsembleE ){
+                        for( Contradiction contr1 : arg1.getlistContradiction() ){ 
+                            if( contr1.getArrivee()==null ){
+                                incorrect = true;
+                                System.out.println(arg1 + " non défendu");
+                            }
+                        }
+                        if(incorrect) break; //Sortie de boucle
+                    }               
+                    if(!incorrect){
+                        System.out.println("Solution admissible 2 \n"+ "solution admissible : "+solAdmissible);
+                    }*/
                 }
 
             }
