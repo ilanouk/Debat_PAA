@@ -8,6 +8,7 @@ public class Main {
         ArrayList <Argument> listeArgument = new ArrayList<Argument>();
         boolean boucle=true;
         Scanner sc = new Scanner(System.in);
+        ArrayList <Argument> EnsembleE = new ArrayList<Argument>();
         System.out.println("Combien d'argument y a t il dans le débat");
         int nb = sc.nextInt();
         int i=0;
@@ -72,27 +73,32 @@ public class Main {
 
             if (choix ==1){//ajouter un argument
                 System.out.println(listeArgument);
+                 System.out.println("Ensemble à verifier " +EnsembleE);
             	System.out.println("Donnez l'argument que vous voulez ajouter :");
             	argu = sc.next();
-            	for(int j = 0 ; j<listeArgument.size();j++) {
-            		if (listeArgument.get(j).isEqual(argu)) {
-            			ajout=true;
-            	    }
+                if listeArgument.contains(argu){
+
+                    if(EnsembleE.contains(argu)){
+                        ajout=true;
+                    }
+                            
                 }
+            	
                 if(ajout){ // Si ajout==true, alors argument deja ajouté a la liste
                     System.out.println("Argument déjà ajouté");}
                 else {
-                    listeArgument.add(new Argument(argu));	
+                    EnsembleE.add(new Argument(argu));	
                 }
             System.out.println(listeArgument);
             }
             if (choix ==2){// supprimer un argument
                 boolean refus = false;
                 System.out.println(listeArgument);
+                System.out.println("Ensemble à verifier " +EnsembleE);
             	System.out.println("Donnez l'argument que vous voulez supprimer :");
             	argu = sc.next();
-            	for(int k = 0 ; k<listeArgument.size();k++) {
-            		if (listeArgument.get(k).isEqual(argu)) {
+            	for(int k = 0 ; k<EnsembleE.size();k++) {
+            		if (EnsembleE.get(k).isEqual(argu)) {
                         refus = true;
             			listeArgument.remove(k);
             		
