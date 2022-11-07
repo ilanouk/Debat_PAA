@@ -72,15 +72,24 @@ public class Main {
             String argu ;
 
             if (choix ==1){//ajouter un argument
+            boolean contientArgu = false;
                 System.out.println(listeArgument);
                  System.out.println("Ensemble à verifier " +EnsembleE);
             	System.out.println("Donnez l'argument que vous voulez ajouter :");
             	argu = sc.next();
-                if listeArgument.contains(argu){
 
-                    if(EnsembleE.contains(argu)){
-                        ajout=true;
+                for(int j = 0 ; j<listeArgument.size();j++) {
+            		if (listeArgument.get(j).isEqual(argu)) {
+            			contientArgu = true;
+            	    }
+                }
+                    if (contientArgu){
+                        for(int j = 0 ; j<Ensemble.size();j++) {
+                            if (EnsembleE.get(j).isEqual(argu)) {
+                                ajout=true;
+                            }
                     }
+                    
                             
                 }
             	
