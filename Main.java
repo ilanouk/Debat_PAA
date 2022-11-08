@@ -168,6 +168,15 @@ public class Main {
                     }
 
                     // Rechercher si un argument n'est pas défendu face à toutes ses contradictions
+                    /*
+                     * Créer dfs récursif pour parcourir tout l'ensemble
+                     * et voir si l'un des chemins est impaire (=erreur car
+                     * sa contradiction n'est pas contredite )
+                     * 
+                     * 
+                     * 
+                     */
+                    
                     for( Argument arg1 : EnsembleE ){
                         for( Contradiction contr1 : arg1.getlistContradiction() ){
                             if( true ){
@@ -175,19 +184,6 @@ public class Main {
                             }
                         }
                     }
-
-                    /*for( Argument arg1 : EnsembleE ){
-                        for( Contradiction contr1 : arg1.getlistContradiction() ){ 
-                            if( contr1.getArrivee()==null ){
-                                incorrect = true;
-                                System.out.println(arg1 + " non défendu");
-                            }
-                        }
-                        if(incorrect) break; //Sortie de boucle
-                    }               
-                    if(!incorrect){
-                        System.out.println("Solution admissible 2 \n"+ "solution admissible : "+solAdmissible);
-                    }*/
                 }
 
             }
