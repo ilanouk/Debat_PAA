@@ -167,29 +167,14 @@ public class Main {
                         System.out.println("La solution "+ EnsembleE + " est admissible");
                     }
 
-                    /*int idx = 0;
+                    // Rechercher si un argument n'est pas défendu face à toutes ses contradictions
                     for( Argument arg1 : EnsembleE ){
-                        for( Argument arg2 : EnsembleE){
+                        for( Contradiction contr1 : arg1.getlistContradiction() ){
+                            if( true ){
 
-                            Contradiction contr2 = arg2.getContradiction(idx);
-                            Contradiction contr1 = arg1.getContradiction(idx);
-
-                            if( arg1.getlistContradiction().contains(contr2) && arg2.getlistContradiction().contains(contr1) && arg1!=arg2 ){
-                                incorrect=true;
-                                System.out.println(arg1 +" et "+ arg2 + " se contredisent");
-                            }
-
-                            else { // Sinon on stock le 1er argument dans la solution admissible
-                                while(idxSol<solAdmissible.size() && !solAdmissible.contains(arg1)){ // Chercher l'index pour insérer les arguments
-                                    idxSol++;
-                                }
-                                solAdmissible.add(idxSol, arg1);
                             }
                         }
-                    }*/
-
-                    // Rechercher si un argument n'est pas défendu face à toutes ses contradictions
-
+                    }
 
                     /*for( Argument arg1 : EnsembleE ){
                         for( Contradiction contr1 : arg1.getlistContradiction() ){ 
@@ -210,10 +195,7 @@ public class Main {
             if (choix ==4){ //Fin
                 boucle = false;
             }
-            
+
       }sc.close();
-        
-    
     }
-    
 }
