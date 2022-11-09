@@ -163,9 +163,7 @@ public class Main {
                         }
                     }
 
-                    if( admissible ){
-                        System.out.println("La solution "+ EnsembleE + " est admissible");
-                    }
+                    
 
                     // Rechercher si un argument n'est pas défendu face à toutes ses contradictions
                     /*
@@ -173,16 +171,25 @@ public class Main {
                      * et voir si l'un des chemins est impaire (=erreur car
                      * sa contradiction n'est pas contredite )
                      * 
-                     * 
+                     * Il faut verifier que chaque argument qui possede des contradiction partant de lui en a arrivant à lui
+                     * 1) Parcourir les noeuds
+                     * 2) verifier si il a des contradictions si non alors pas besoin de "3)""
+                     * 3) Si oui : verifier si il a des parents. : si oui alors parcourir un autre argument sinon la solution n'est pas admissible.
                      * 
                      */
                     
                     for( Argument arg1 : EnsembleE ){
-                        for( Contradiction contr1 : arg1.getlistContradiction() ){
-                            if( true ){
-
+                        if (arg1.getlistContradiction().size()!=0){
+                            if(arg1.getlisteParent().size()==0){
+                                admissible = false;
                             }
                         }
+                    }
+                    if( admissible ){
+                        System.out.println("La solution "+ EnsembleE + " est admissible");
+                    }
+                    else{
+                        System.out.println("La solution : " + EnsembleE+" n'est pas admisible");
                     }
                 }
 
