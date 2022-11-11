@@ -169,8 +169,6 @@ public class Main {
                      * Créer dfs récursif pour parcourir tout l'ensemble
                      * et voir si l'un des chemins est impaire (=erreur car
                      * sa contradiction n'est pas contredite )
-                     * 
-                     * Il faut verifier que chaque argument qui possede des contradiction partant de lui en a arrivant à lui
                      * 1) Parcourir les noeuds
                      * 2) verifier si il a des contradictions si non alors pas besoin de "3)""
                      * 3) Si oui : verifier si il a des parents. : si oui alors parcourir un autre argument sinon la solution n'est pas admissible.
