@@ -166,9 +166,9 @@ public class Main {
 
                     // Rechercher si un argument n'est pas défendu face à toutes ses contradictions
                     /*
-                     * Créer dfs récursif pour parcourir tout l'ensemble
-                     * et voir si l'un des chemins est impaire (=erreur car
-                     * sa contradiction n'est pas contredite )
+                     * pour tout argument a qui contredit un élément de E , il existe un
+                     * élément de E qui contredit a ; on dit alors que E se défend contre a
+                     * Donc :
                      * 1) Parcourir les noeuds
                      * 2) verifier si il a des contradictions si non alors pas besoin de "3)""
                      * 3) Si oui : verifier si il a des parents. : si oui alors parcourir un autre argument sinon la solution n'est pas admissible.
