@@ -146,7 +146,6 @@ public class Main {
                 else{
                     //Rechecher si 2 arguments se contredisent
                     for( Argument arg1 : EnsembleE){
-                        System.out.println(" Pour les test : "+arg1.getlistContradiction());
                         for( Contradiction contr1 : arg1.getlistContradiction()){
 
                             Argument arg2 = contr1.getArrivee();
@@ -177,19 +176,20 @@ public class Main {
                      * 3) Si oui : verifier si il a des parents. : si oui alors parcourir un autre argument sinon la solution n'est pas admissible.
                      * 
                      */
-                    
+                    Argument argum = null;
                     for( Argument arg1 : EnsembleE ){
                         if (arg1.getlistContradiction().size()!=0){
                             if(arg1.getlisteParent().size()==0){
                                 admissible = false;
+                                argum = arg1;
                             }
                         }
                     }
                     if( admissible ){
-                        System.out.println("La solution "+ EnsembleE + " est admissible");
+                        System.out.println(" La solution "+ EnsembleE + " est admissible");
                     }
                     else{
-                        System.out.println("La solution : " + EnsembleE+" n'est pas admisible");
+                        System.out.println(" Dans la solution " + EnsembleE+", l'argument "+argum +" n'est pas défendu");
                     }
                 }
 
