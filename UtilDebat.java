@@ -106,4 +106,46 @@ public class UtilDebat {
         }
         return null;
     }
+
+    
+    /** 
+     * La méthode permet à l'utilisateur d'ajouter un argument dans l'ensemble à vérifier.
+     * 
+     * @param argu
+     * @param liste
+     * @param ensemble
+     * @param sc
+     */
+    public static void ajouterArgument(String argu, ArrayList <Argument> liste,ArrayList <Argument> ensemble, Scanner sc ){
+        boolean contientArgu = false;
+        Argument a = null;
+        boolean ajout = false;
+        
+        for(int j = 0 ; j<liste.size();j++) {
+            if (liste.get(j).isEqual(argu)) {
+                contientArgu = true;
+                a = liste.get(j);
+            }
+        }
+        if (contientArgu){
+            for(int j = 0 ; j<ensemble.size();j++) {
+                if (ensemble.get(j).isEqual(argu)) {
+                    ajout=true;
+                }
+            }
+            
+        }
+        else{
+            System.out.println("L'argument n'existe pas");
+        }
+        
+        if(ajout || !contientArgu){ // Si ajout==true, alors argument deja ajouté a la liste
+            System.out.println("Argument déjà ajouté ou inexistant");
+        }
+        else {
+            ensemble.add(a);	
+        }
+    System.out.println(liste);
+    System.out.println("Ensemble à verifier " +ensemble);
+    }
 }
