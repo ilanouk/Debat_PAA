@@ -12,11 +12,6 @@ public class UtilDebat {
 
         }
 
-        //Si l'ensemble a qu'un argument
-        if(ensembleE.size()==1){
-            return("Admissible");
-            
-        }
         else{
             //Rechecher si 2 arguments se contredisent
             for( Argument arg1 : ensembleE){
@@ -25,14 +20,15 @@ public class UtilDebat {
                     Argument arg2 = contr1.getArrivee();
                     Contradiction c1 = new Contradiction(arg2, arg1);
                     
-                    for( Contradiction contr2 : arg2.getlistContradiction()){
-                        if( contr2.isEqual(c1)){
-                            admissible=false;
-                            return (arg1 + " et " + arg2 + " se contredisent");
+                    if(ensembleE.contains(arg2)){
+                        for( Contradiction contr2 : arg2.getlistContradiction()){
+                            if( contr2.isEqual(c1)){
+                                admissible=false;
+                                return (arg1 + " et " + arg2 + " se contredisent");
 
+                            }
                         }
                     }
-                    
                     
                 }
             }
