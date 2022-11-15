@@ -3,7 +3,14 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class UtilDebat {
-    public static String verifSolution(ArrayList <Argument> ensembleE){ // La fonction verifie si l'ensemble est une solution admissible. Elle retourne un message indiquant quel probleme est retourné 
+
+    /* La méthode vérifie si l'ensemble est une solution admissible
+     * et retourne un message indiquant quelle est la cause du problème
+     *
+     * @param ensembleE
+     * @return le message affiché par rapport à l'ensemble
+     */
+    public static String verifSolution(ArrayList <Argument> ensembleE){
         boolean admissible = true;
 
         //Si l'ensemble est vide => solution admissible
@@ -63,6 +70,13 @@ public class UtilDebat {
              
         }
     }
+
+    /* La méthode demande à l'utilisateur combien d'arguments il souhaite ajouter
+     * puis crée une listeArgument avec les arguments numérotés [A0,...,An]
+     *
+     * @param sc
+     * @return la liste de l'ensemble des arguments créés
+     */
     public static ArrayList<Argument> creationArgument(Scanner sc){
         ArrayList <Argument> listeArgument = new ArrayList<Argument>();
         boolean boucle = true;
