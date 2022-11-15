@@ -148,4 +148,34 @@ public class UtilDebat {
     System.out.println(liste);
     System.out.println("Ensemble à verifier " +ensemble);
     }
+
+
+    /** 
+     * La méthode permet à l'utilisateur de supprimer un argument dans l'ensemble à vérifier.
+     * 
+     * @param argu
+     * @param liste
+     * @param ensemble
+     * @param sc
+     */
+
+    public static void supprimerArgument(String argu, ArrayList <Argument> liste,ArrayList <Argument> ensemble, Scanner sc ){
+
+        boolean refus = false;
+
+        for(int k = 0 ; k<ensemble.size();k++) {
+            if (ensemble.get(k).isEqual(argu)) {
+                refus = true;
+                ensemble.remove(k);
+            
+            } 
+        }
+        if(!refus){
+            System.out.println("Argument n'est pas dans la liste ou déjà supprimé");
+        }
+
+    System.out.println(liste);
+    System.out.println("Ensemble à verifier " +ensemble);
+
+    }
 }

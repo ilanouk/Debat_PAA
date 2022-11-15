@@ -92,6 +92,8 @@ public class Main {
                     argu = sc.next();
                     //Argument a = null;
 
+                    UtilDebat.ajouterArgument(argu, listeArgument, ensembleE, sc);
+
                     /*for(int j = 0 ; j<listeArgument.size();j++) {
                         if (listeArgument.get(j).isEqual(argu)) {
                             contientArgu = true;
@@ -119,17 +121,19 @@ public class Main {
                 System.out.println(listeArgument);
                 System.out.println("Ensemble à verifier " +ensembleE);*/
 
-                UtilDebat.ajouterArgument(argu, listeArgument, ensembleE, sc);
+                
 
                 }
                 if (choix ==2){// supprimer un argument
-                    boolean refus = false;
+                    //boolean refus = false;
                     System.out.println(listeArgument);
                     System.out.println("Ensemble à verifier " +ensembleE);
                     System.out.println("Donnez l'argument que vous voulez supprimer :");
                     argu = sc.next();
 
-                    for(int k = 0 ; k<ensembleE.size();k++) {
+                    UtilDebat.supprimerArgument(argu, listeArgument, ensembleE, sc);
+
+                    /*for(int k = 0 ; k<ensembleE.size();k++) {
                         if (ensembleE.get(k).isEqual(argu)) {
                             refus = true;
                             ensembleE.remove(k);
@@ -141,7 +145,7 @@ public class Main {
                     }
 
                 System.out.println(listeArgument);
-                System.out.println("Ensemble à verifier " +ensembleE);
+                System.out.println("Ensemble à verifier " +ensembleE);*/
 
                 }
 
