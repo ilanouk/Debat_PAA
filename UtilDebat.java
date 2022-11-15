@@ -77,6 +77,41 @@ public class UtilDebat {
         }
     }
 
+    public static void ajoutContradiction(Scanner sc,ArrayList<Argument> listeArgument){
+        System.out.println("Entrez l'argument cible puis l'argument qu'il contredit ex : A0 A1");
+        String strDepart = sc.next();
+        String strArrivee = sc.next();
+        int i;
+        
+    
+        Argument argDepart=null;
+        Argument argArrivee=null;
+        
+        for(i=0;i<listeArgument.size();i++){ //Dans cette boucle, on ajoute une contradiction entre les arguments donné par l'utilisateur
+            if (listeArgument.get(i).isEqual(strDepart)){ // on cherche quel argument est associé au titre rentreé
+                argArrivee = listeArgument.get(i);
+            }
+            if (listeArgument.get(i).isEqual(strArrivee)){ // on cherche quel argument est associé au titre rentreé
+                argDepart = listeArgument.get(i);
+            }
+            
+            
+        }
+        if (argArrivee!=null && argDepart!=null){//on crée une contradiction entre les titres rentrés
+        
+            argDepart.addContradiciton(new Contradiction(argDepart, argArrivee));
+            argArrivee.addParent(argDepart);
+        }
+    }
+
+
+
+
+
+
+
+
+
     /** La méthode demande à l'utilisateur combien d'arguments il souhaite ajouter
      * puis crée une listeArgument avec les arguments numérotés [A0,...,An]
      *
@@ -111,15 +146,19 @@ public class UtilDebat {
     /** 
      * La méthode permet à l'utilisateur d'ajouter un argument dans l'ensemble à vérifier.
      * 
-     * @param argu
      * @param liste
      * @param ensemble
      * @param sc
      */
-    public static void ajouterArgument(String argu, ArrayList <Argument> liste,ArrayList <Argument> ensemble, Scanner sc ){
+    public static void ajouterArgument( ArrayList <Argument> liste,ArrayList <Argument> ensembleE, Scanner sc ){
         boolean contientArgu = false;
         Argument a = null;
         boolean ajout = false;
+        System.out.println(liste);
+
+        System.out.println("Ensemble à verifier " +ensembleE);
+        System.out.println("Donnez l'argument que vous voulez ajouter :");
+        String argu = sc.next();
         
         for(int j = 0 ; j<liste.size();j++) {
             if (liste.get(j).isEqual(argu)) {
@@ -128,8 +167,8 @@ public class UtilDebat {
             }
         }
         if (contientArgu){
-            for(int j = 0 ; j<ensemble.size();j++) {
-                if (ensemble.get(j).isEqual(argu)) {
+            for(int j = 0 ; j<ensembleE.size();j++) {
+                if (ensembleE.get(j).isEqual(argu)) {
                     ajout=true;
                 }
             }
@@ -143,10 +182,10 @@ public class UtilDebat {
             System.out.println("Argument déjà ajouté ou inexistant");
         }
         else {
-            ensemble.add(a);	
+            ensembleE.add(a);	
         }
     System.out.println(liste);
-    System.out.println("Ensemble à verifier " +ensemble);
+    System.out.println("Ensemble à verifier " +ensembleE);
     }
 
 
@@ -159,14 +198,20 @@ public class UtilDebat {
      * @param sc
      */
 
-    public static void supprimerArgument(String argu, ArrayList <Argument> liste,ArrayList <Argument> ensemble, Scanner sc ){
+    public static void supprimerArgument(ArrayList <Argument> liste,ArrayList <Argument> ensembleE, Scanner sc ){
+
+
+        System.out.println(liste);
+        System.out.println("Ensemble à verifier " +ensembleE);
+        System.out.println("Donnez l'argument que vous voulez supprimer :");
+        String argu = sc.next();
 
         boolean refus = false;
 
-        for(int k = 0 ; k<ensemble.size();k++) {
-            if (ensemble.get(k).isEqual(argu)) {
+        for(int k = 0 ; k<ensembleE.size();k++) {
+            if (ensembleE.get(k).isEqual(argu)) {
                 refus = true;
-                ensemble.remove(k);
+                ensembleE.remove(k);
             
             } 
         }
@@ -175,7 +220,7 @@ public class UtilDebat {
         }
 
     System.out.println(liste);
-    System.out.println("Ensemble à verifier " +ensemble);
+    System.out.println("Ensemble à verifier " +ensembleE);
 
     }
 }
