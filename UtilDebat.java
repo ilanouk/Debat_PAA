@@ -2,9 +2,15 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * @author Tigran WATTRELOS
+ * @author Ilan' DAUMONT-OUK
+ * @authour Terry TRAN
+ */
+
 public class UtilDebat {
 
-    /* La méthode vérifie si l'ensemble est une solution admissible
+    /** La méthode vérifie si l'ensemble est une solution admissible
      * et retourne un message indiquant quelle est la cause du problème
      *
      * @param ensembleE
@@ -71,7 +77,7 @@ public class UtilDebat {
         }
     }
 
-    /* La méthode demande à l'utilisateur combien d'arguments il souhaite ajouter
+    /** La méthode demande à l'utilisateur combien d'arguments il souhaite ajouter
      * puis crée une listeArgument avec les arguments numérotés [A0,...,An]
      *
      * @param sc

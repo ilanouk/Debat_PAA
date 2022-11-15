@@ -2,6 +2,12 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * @author Tigran WATTRELOS
+ * @author Ilan' DAUMONT-OUK
+ * @authour Terry TRAN
+ */
+
 
 public class Main {
 
