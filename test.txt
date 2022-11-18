@@ -1,0 +1,5 @@
+argument(titi)
+argument(toto)
+contradiction(titi,toto)
+contradiction(toto,titi)
+ajouee

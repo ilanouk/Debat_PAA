@@ -16,105 +16,68 @@ public class Main {
         boolean boucle=true;
         Scanner sc = new Scanner(System.in);
         ArrayList <Argument> ensembleE = new ArrayList<Argument>();
+        int autoManuel= -1;
         
-        listeArgument = UtilDebat.creationArgument(sc); // On demande le nombre d'argument et on crée les arguments
 
+        while (boucle){
+            System.out.println("Voulez vous remplir les arguments et contradictions : \n 1) Manuellement \n 2) A l'aide d'un fichier");
+            autoManuel = sc.nextInt();
+            if (autoManuel== 1 || autoManuel== 2){
+                boucle = false;
+            }
+            
+        }
         
         boucle = true;
-        while (boucle){
-            try{
-                System.out.println(listeArgument);
-                System.out.println("1) Ajouter une contradiction \n2) Fin");
-                int choix = sc.nextInt(); // On sticke ici le choix de l'utilistateur
-                if (choix == 1){ //Ajouter une contradiction
+        if (autoManuel==1){
+            listeArgument = UtilDebat.creationArgument(sc); // On demande le nombre d'argument et on crée les arguments
+            while (boucle){
+                try{
+                    System.out.println(listeArgument);
+                    System.out.println("1) Ajouter une contradiction \n2) Fin");
+                    int choix = sc.nextInt(); // On sticke ici le choix de l'utilistateur
+                    if (choix == 1){ //Ajouter une contradiction
 
-                   UtilDebat.ajoutContradiction(sc,listeArgument);
+                    UtilDebat.ajoutContradictionSc(sc,listeArgument);
+                    }
+
+                    else if (choix == 2 ){ //FIN
+                        boucle = false;
+                    }
+
+                    else{
+                        System.out.println("Entrez un chiffre entre 1 et 4");
+                    }
+                }
+                catch(InputMismatchException e){
+                    System.out.println("Veuillez entrer un entier");
+                    sc.nextLine();
+
                 }
 
-                else if (choix == 2 ){ //FIN
-                    boucle = false;
-                }
 
-                else{
-                    System.out.println("Entrez un chiffre entre 1 et 4");
-                }
+
             }
-            catch(InputMismatchException e){
-                System.out.println("Veuillez entrer un entier");
-                sc.nextLine();
-
-            }
-
-
-
         }
-
+        if (autoManuel == 2){
+            System.out.println("Entrez le chemin du fichier");
+            //String nomFichier = sc.next();
+            UtilDebat.lireFichier("test.txt", listeArgument); //test.txt n'est un parametre que pour les tests , decommenter la ligne avant apres les tests
+        }
         boucle = true;
         while(boucle){
 
             try{
+                System.out.println(listeArgument + "\n" + ensembleE);
                 System.out.println("1) Ajouter un argument \n2)retirer un argument \n3) Verifier la solution \n4) fin");
                 int choix = sc.nextInt();
 
                 if (choix ==1){//ajouter un argument
-                    //boolean contientArgu = false;
-                    
-                    //Argument a = null;
-
-                    UtilDebat.ajouterArgument( listeArgument, ensembleE, sc);
-
-                    /*for(int j = 0 ; j<listeArgument.size();j++) {
-                        if (listeArgument.get(j).isEqual(argu)) {
-                            contientArgu = true;
-                            a = listeArgument.get(j);
-                        }
-                    }
-                    if (contientArgu){
-                        for(int j = 0 ; j<ensembleE.size();j++) {
-                            if (ensembleE.get(j).isEqual(argu)) {
-                                ajout=true;
-                            }
-                        }
-                        
-                    }
-                    else{
-                        System.out.println("L'argument n'existe pas");
-                    }
-                    
-                    if(ajout || !contientArgu){ // Si ajout==true, alors argument deja ajouté a la liste
-                        System.out.println("Argument déjà ajouté ou inexistant");
-                    }
-                    else {
-                        ensembleE.add(a);	
-                    }
-                System.out.println(listeArgument);
-                System.out.println("Ensemble à verifier " +ensembleE);*/
-
                 
-
-                }
-                if (choix ==2){// supprimer un argument
-                    //boolean refus = false;
-                   
-                    UtilDebat.supprimerArgument(listeArgument, ensembleE, sc);
-
-                    /*for(int k = 0 ; k<ensembleE.size();k++) {
-                        if (ensembleE.get(k).isEqual(argu)) {
-                            refus = true;
-                            ensembleE.remove(k);
-                        
-                        } 
-                    }
-                    if(!refus){
-                        System.out.println("Argument n'est pas dans la liste ou déjà supprimé");
-                    }
-
-                System.out.println(listeArgument);
-                System.out.println("Ensemble à verifier " +ensembleE);*/
-
+                    UtilDebat.ajouterArgument( listeArgument, ensembleE, sc);    
                 }
 
-                if (choix ==3){// Verifier la solution
+                else if (choix ==3){// Verifier la solution
                     
                     String solution = UtilDebat.verifSolution(ensembleE);
                     if (solution.equals("Admissible")){

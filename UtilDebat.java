@@ -1,6 +1,13 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 
 /**
  * @author Tigran WATTRELOS
@@ -76,11 +83,15 @@ public class UtilDebat {
              
         }
     }
-
-    public static void ajoutContradiction(Scanner sc,ArrayList<Argument> listeArgument){
-        System.out.println("Entrez l'argument cible puis l'argument qu'il contredit ex : A0 A1");
-        String strDepart = sc.next();
-        String strArrivee = sc.next();
+     /** La méthode crée une contradiction entre l'argument identifié par le string strDepart et l'argument identifié par le string strArrivee
+     * 
+     *
+     * @param strDepart
+     * @param strArrivee
+     * @param listeArgument
+     * @return true si la contradiction a bien été créé et false sinon
+     */
+    public static boolean ajoutContradiction(String strDepart, String strArrivee,ArrayList<Argument> listeArgument){ //Private ???
         int i;
         
     
@@ -91,7 +102,7 @@ public class UtilDebat {
             if (listeArgument.get(i).isEqual(strDepart)){ // on cherche quel argument est associé au titre rentreé
                 argArrivee = listeArgument.get(i);
             }
-            if (listeArgument.get(i).isEqual(strArrivee)){ // on cherche quel argument est associé au titre rentreé
+            if (listeArgument.get(i).isEqual(strArrivee)){ // on cherche quel argument est associé au titre rentré
                 argDepart = listeArgument.get(i);
             }
             
@@ -101,6 +112,22 @@ public class UtilDebat {
         
             argDepart.addContradiciton(new Contradiction(argDepart, argArrivee));
             argArrivee.addParent(argDepart);
+        }
+        else {
+            return false;
+        }
+        return true;
+    }
+
+    public static void ajoutContradictionSc(Scanner sc,ArrayList<Argument> listeArgument){
+        System.out.println("Entrez l'argument cible puis l'argument qu'il contredit ex : A0 A1");
+        String strDepart = sc.next();
+        String strArrivee = sc.next();
+        
+    
+        boolean ajout=ajoutContradiction(strDepart, strArrivee, listeArgument);
+        if (!ajout){
+            System.out.println("La Contradiction n'est pas bien rédiger ou le fichier est mal formé");
         }
     }
 
@@ -221,6 +248,83 @@ public class UtilDebat {
 
     System.out.println(liste);
     System.out.println("Ensemble à verifier " +ensembleE);
+
+    }
+
+
+     
+
+    public static void ajouterArgumentSansSc(String nom,ArrayList<Argument> liste){ //Private ???
+        boolean contientArgu = false;
+                
+        for(int j = 0 ; j<liste.size();j++) {
+            if (liste.get(j).isEqual(nom)) {
+                contientArgu = true;
+                break;
+            }
+            
+        }
+        if (!contientArgu){
+            liste.add(new Argument(nom));
+        }
+        else{
+            System.out.println("L'argument est déja dans la liste");
+        }
+        	
+        
+    }
+    /** 
+     * La méthode prend en argument le nom d'un fichier et permet de le lire et d'ajouter un argument ou une contradiction à la solution.
+     * 
+     * @param lienFichier
+     * @throws IOException
+     */
+    public static void lireFichier(String lienFichier,ArrayList<Argument> liste) {
+        int i=0;
+        try{
+            File f = new File(lienFichier);
+            FileReader fis = new FileReader(f);
+            BufferedReader bf = new BufferedReader(fis);
+            String texte;
+        
+            while (i>-1){ //boucle infini jusqu'à ce qu'il y ait une erreur IOException
+                texte ="";
+                texte = bf.readLine();
+                StringTokenizer st = new StringTokenizer(texte,"(");
+                String argOuContr = st.nextToken();
+                if (argOuContr.equals("argument")){
+                    texte = st.nextToken();
+                    texte=texte.replace(")","");
+                    
+                    ajouterArgumentSansSc(texte, liste);
+                }
+                if (argOuContr.equals("contradiction")){
+                    
+                    StringTokenizer st2 = new StringTokenizer(st.nextToken(),",");
+                    String arg1 = st2.nextToken();
+                    String arg2 = st2.nextToken();
+                    arg2 = arg2.replace(")","");
+                    boolean ajout = ajoutContradiction(arg1,arg2, liste);
+                    if (!ajout){
+                        System.out.println("fichier mal formé");
+                    }
+                }
+            }
+            
+            
+        }
+
+        catch(FileNotFoundException e){
+            System.out.println("Le fichier n'existe pas"); // Quand pas de fichier, voir ce qu'il faut faire
+            System.exit(i);
+        }
+        catch(IOException e){
+            System.out.println(e);
+        }
+        catch(NullPointerException n){
+            System.out.println("test");
+        }
+
 
     }
 }
