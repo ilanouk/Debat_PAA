@@ -63,18 +63,23 @@ public class Main {
             System.out.println("Entrez le chemin du fichier");
             //String nomFichier = sc.next();
             UtilDebat.lireFichier("test.txt", listeArgument); //test.txt n'est un parametre que pour les tests , decommenter la ligne avant apres les tests
+            UtilDebat.sauvegarde(listeArgument,"./sauvegarde");
         }
         boucle = true;
         while(boucle){
 
             try{
-                System.out.println(listeArgument + "\n" + ensembleE);
+                System.out.println("liste des arguments : "+listeArgument + "\n" + "Ensemble à verifier" + ensembleE);
                 System.out.println("1) Ajouter un argument \n2)retirer un argument \n3) Verifier la solution \n4) fin");
                 int choix = sc.nextInt();
 
                 if (choix ==1){//ajouter un argument
                 
                     UtilDebat.ajouterArgument( listeArgument, ensembleE, sc);    
+                }
+
+                else if (choix ==2){
+                    UtilDebat.supprimerArgument(listeArgument, ensembleE, sc);
                 }
 
                 else if (choix ==3){// Verifier la solution

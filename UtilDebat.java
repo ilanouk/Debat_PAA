@@ -1,9 +1,12 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -251,9 +254,14 @@ public class UtilDebat {
 
     }
 
-
+     /** 
+     * La méthode prend en argument le nom d'un argument et permet de le créer et de l'ajouter 
+     * à une liste en vérifiant si il est déja dans la liste
+     * 
+     * @param nom
+     * @param liste 
+     */
      
-
     public static void ajouterArgumentSansSc(String nom,ArrayList<Argument> liste){ //Private ???
         boolean contientArgu = false;
                 
@@ -319,11 +327,42 @@ public class UtilDebat {
             System.exit(i);
         }
         catch(IOException e){
-            System.out.println(e);
+            System.out.println("Il y a un problème dans la lecture du fichier");
+            System.exit(i);
         }
         catch(NullPointerException n){
-            System.out.println("test");
+            
         }
+
+
+    }
+
+
+    public static void sauvegarde(ArrayList<Argument> ensembleE,String lienFichier){
+
+        try{
+            File f = new File (lienFichier);
+            f.delete();
+            f.createNewFile();
+            FileWriter fw = new FileWriter(f);
+        
+            BufferedWriter bf = new BufferedWriter(fw);
+          
+            for(int i=0; i<ensembleE.size();i++){
+                bf.write("argument("+ensembleE.get(i).getTitre()+")\n");
+            }
+            
+            
+            
+            bf.close();
+        }
+
+        catch(IOException e){
+
+        }
+        //catch(NullPointerException n){
+
+        //}
 
 
     }
