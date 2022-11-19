@@ -358,12 +358,8 @@ public class UtilDebat {
         }
 
         catch(IOException e){
-
+            System.out.println("Erreur dans la sauvegarde");
         }
-        //catch(NullPointerException n){
-
-        //}
-
 
     }
 }
