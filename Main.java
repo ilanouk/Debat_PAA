@@ -1,3 +1,4 @@
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -16,6 +17,7 @@ public class Main {
         boolean boucle=true;
         Scanner sc = new Scanner(System.in);
         ArrayList <Argument> ensembleE = new ArrayList<Argument>();
+        ArrayList <ArrayList<Argument>> listeSolution= new ArrayList<ArrayList<Argument>>(); //Pour fichier
         int autoManuel= -1;
         
 
@@ -29,7 +31,7 @@ public class Main {
         }
         
         boucle = true;
-        if (autoManuel==1){
+        if (autoManuel==1){ // Manuel
             listeArgument = UtilDebat.creationArgument(sc); // On demande le nombre d'argument et on crée les arguments
             while (boucle){
                 try{
@@ -59,22 +61,35 @@ public class Main {
 
             }
         }
-        if (autoManuel == 2){
+        if (autoManuel == 2){ //Fichier
+            
             System.out.println("Entrez le chemin du fichier");
             //String nomFichier = sc.next();
+    
             UtilDebat.lireFichier("./test.txt", listeArgument); //test.txt n'est un parametre que pour les tests , decommenter la ligne avant apres les tests
             UtilDebat.sauvegarde(listeArgument,"./sauvegarde");
-
+            
         }
         boucle = true;
+        
         while(boucle){
 
             try{
-                System.out.println("liste des arguments : "+listeArgument + "\n" + "Ensemble à verifier" + ensembleE);
-                System.out.println("1) Ajouter un argument \n2)retirer un argument \n3) Verifier la solution \n4) fin");
+                System.out.println("1) Chercher une solution admissible \n2) Chercher une solution préférée \n3) Sauvegarder la solution \n4) Fin");
                 int choix = sc.nextInt();
 
-                if (choix ==1){//ajouter un argument
+                if( choix==1){
+                    
+                    String solution = UtilDebat.verifSolution(ensembleE);
+                    if (solution.equals("Admissible") && listeSolution.contains(solution) ){
+                        System.out.println(ensembleE + " est une solution admissible");
+                    }
+                    else{
+                        System.out.println(solution);
+                    }
+                }
+
+                /*if (choix ==1){//ajouter un argument
                 
                     UtilDebat.ajouterArgument( listeArgument, ensembleE, sc);    
                 }
@@ -93,6 +108,7 @@ public class Main {
                         System.out.println(solution);
                     }
                 }
+                */
 
                 else if (choix ==4){ //Fin
                     boucle = false;
