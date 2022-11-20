@@ -67,15 +67,35 @@ public class UtilDebat {
                 * 
                 */
             Argument argum = null;
-            for( Argument arg1 : ensembleE ){
-                System.out.println(arg1+ " : " +arg1.getlistContradiction());
-                if (arg1.getlistContradiction().size()!=0){
-                    if(arg1.getlisteParent().size()==0 ){
+            boolean contientGP = false;
+            for(Argument arg1 : ensembleE){
+                for (Argument parent : arg1.getlisteParent()){
+                    if(parent.getlisteParent().isEmpty() ){
                         admissible = false;
                         argum = arg1;
+
+                    }
+                    else{
+                        for (Argument grandPere : parent.getlisteParent()){
+                            if (ensembleE.contains(grandPere)){
+                                contientGP = true;
+                            }
+                        }
+                        if (!contientGP){
+                            admissible = false;
+                            argum = arg1;
+
+                        }
                     }
                 }
             }
+            // for( Argument arg1 : ensembleE ){
+            //     if (arg1.getlistContradiction().size()!=0){
+            //         if(arg1.getlisteParent().size()==0 ){
+            //             admissible = false;
+            //             argum = arg1;
+            //         }
+            //     }
             if( admissible ){
                 return("Admissible");
             }
@@ -304,6 +324,7 @@ public class UtilDebat {
                     texte=texte.replace(")","");
                     
                     ajouterArgumentSansSc(texte, liste);
+                    bf.close();
                 }
                 if (argOuContr.equals("contradiction")){
                     
@@ -315,6 +336,8 @@ public class UtilDebat {
                     if (!ajout){
                         System.out.println("fichier mal formé");
                     }
+                    bf.close();
+
                 }
             }
             

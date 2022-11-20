@@ -1,5 +1,7 @@
-argument(titi)
-argument(toto)
-contradiction(titi,toto)
-contradiction(toto,titi)
-ajouee
+argument(A1)
+argument(A2)
+argument(A3)
+contradiction(A1,A2)
+contradiction(A2,A1)
+contradiction(A2,A3)
+
