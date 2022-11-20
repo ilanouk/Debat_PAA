@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
@@ -319,24 +320,27 @@ public class UtilDebat {
                 texte = bf.readLine();
                 StringTokenizer st = new StringTokenizer(texte,"(");
                 String argOuContr = st.nextToken();
+                System.out.println(argOuContr);
                 if (argOuContr.equals("argument")){
                     texte = st.nextToken();
+                    
                     texte=texte.replace(")","");
+                    System.out.println(texte);
                     
                     ajouterArgumentSansSc(texte, liste);
-                    bf.close();
                 }
-                if (argOuContr.equals("contradiction")){
+                else if (argOuContr.equals("contradiction")){
                     
                     StringTokenizer st2 = new StringTokenizer(st.nextToken(),",");
+                    
                     String arg1 = st2.nextToken();
                     String arg2 = st2.nextToken();
+                    System.out.println(arg1 + " " + arg2);
                     arg2 = arg2.replace(")","");
                     boolean ajout = ajoutContradiction(arg1,arg2, liste);
                     if (!ajout){
                         System.out.println("fichier mal formé");
                     }
-                    bf.close();
 
                 }
             }
@@ -354,6 +358,9 @@ public class UtilDebat {
         }
         catch(NullPointerException n){
             
+        }
+        catch(NoSuchElementException e){
+
         }
 
 
