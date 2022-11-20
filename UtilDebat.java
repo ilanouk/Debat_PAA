@@ -2,11 +2,9 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -70,6 +68,7 @@ public class UtilDebat {
                 */
             Argument argum = null;
             for( Argument arg1 : ensembleE ){
+                System.out.println(arg1+ " : " +arg1.getlistContradiction());
                 if (arg1.getlistContradiction().size()!=0){
                     if(arg1.getlisteParent().size()==0 ){
                         admissible = false;
@@ -103,10 +102,10 @@ public class UtilDebat {
         
         for(i=0;i<listeArgument.size();i++){ //Dans cette boucle, on ajoute une contradiction entre les arguments donné par l'utilisateur
             if (listeArgument.get(i).isEqual(strDepart)){ // on cherche quel argument est associé au titre rentreé
-                argArrivee = listeArgument.get(i);
+                argDepart = listeArgument.get(i);
             }
             if (listeArgument.get(i).isEqual(strArrivee)){ // on cherche quel argument est associé au titre rentré
-                argDepart = listeArgument.get(i);
+                argArrivee = listeArgument.get(i);
             }
             
             
