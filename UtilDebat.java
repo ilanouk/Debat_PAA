@@ -71,7 +71,7 @@ public class UtilDebat {
             Argument argum = null;
             for( Argument arg1 : ensembleE ){
                 if (arg1.getlistContradiction().size()!=0){
-                    if(arg1.getlisteParent().size()==0){
+                    if(arg1.getlisteParent().size()==0 ){
                         admissible = false;
                         argum = arg1;
                     }
@@ -348,12 +348,8 @@ public class UtilDebat {
         
             BufferedWriter bf = new BufferedWriter(fw);
           
-            for(int i=0; i<ensembleE.size();i++){
-                bf.write("argument("+ensembleE.get(i).getTitre()+")\n");
-            }
-            
-            
-            
+            // Afficher l'ensembleE + admissible ou pas
+            bf.write(UtilDebat.verifSolution(ensembleE));
             bf.close();
         }
 
