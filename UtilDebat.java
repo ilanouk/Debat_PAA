@@ -20,7 +20,7 @@ import java.util.StringTokenizer;
 public class UtilDebat {
 
     /** La méthode vérifie si l'ensemble est une solution admissible
-     * et retourne un message indiquant quelle est la cause du problème
+     * et retourne un message indiquant quelle est la cause du problème ou si la solution est admissible
      *
      * @param ensembleE
      * @return le message affiché par rapport à l'ensemble
@@ -90,13 +90,7 @@ public class UtilDebat {
                     }
                 }
             }
-            // for( Argument arg1 : ensembleE ){
-            //     if (arg1.getlistContradiction().size()!=0){
-            //         if(arg1.getlisteParent().size()==0 ){
-            //             admissible = false;
-            //             argum = arg1;
-            //         }
-            //     }
+           
             if( admissible ){
                 return("Admissible");
             }
@@ -385,6 +379,11 @@ public class UtilDebat {
         catch(IOException e){
             System.out.println("Erreur dans la sauvegarde");
         }
+
+    }
+
+
+    public static void solutionAdmissible(ArrayList<Argument> listeArgument, ArrayList<Argument> ensembleE,ArrayList<ArrayList<Argument>> dejaVu){
 
     }
 }
