@@ -89,7 +89,7 @@ public class Main {
                     }
                 }
 
-                /*if (choix ==1){//ajouter un argument
+                if (choix ==1){//ajouter un argument
                 
                     UtilDebat.ajouterArgument( listeArgument, ensembleE, sc);    
                 }
@@ -98,17 +98,13 @@ public class Main {
                     UtilDebat.supprimerArgument(listeArgument, ensembleE, sc);
                 }
 
-                else if (choix ==3){// Verifier la solution
+                else if (choix ==3){// Sauvegarder la solution
+                    System.out.println("Veuiller entrer le chemin du fichier ");
+                    String lien =sc.nextLine();
+                    UtilDebat.sauvegarde(ensembleE, lien);
                     
-                    String solution = UtilDebat.verifSolution(ensembleE);
-                    if (solution.equals("Admissible")){
-                        System.out.println(ensembleE + " est une solution admissible");
-                    }
-                    else{
-                        System.out.println(solution);
-                    }
                 }
-                */
+                
 
                 else if (choix ==4){ //Fin
                     boucle = false;
