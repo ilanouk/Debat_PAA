@@ -359,7 +359,13 @@ public class UtilDebat {
 
 
     }
-
+    /** 
+     * La méthode prend en argument le lien d'un fichier et permet de sauvegarder l'admissibilité d'une solution
+     * 
+     * @param ensenbleE
+     * @param lienFichier
+     * @throws IOException
+     */
 
     public static void sauvegarde(ArrayList<Argument> ensembleE,String lienFichier){
 
@@ -388,8 +394,14 @@ public class UtilDebat {
 
     }
 
-
-    public static void solutionAdmissible(ArrayList<Argument> listeArgument, ArrayList<Argument> ensembleE,ArrayList<ArrayList<Argument>> dejaVu){
-
+    /** 
+     * La fonction prend en argument une liste d'Argument et une liste deja vu qui indique quels ensemble ont déjà été
+     * proposé à l'utilisateur. La fonction permet de chercher les solutions admissibles et non proposé à l'utilisateur.
+     * 
+     * @param lienFichier
+     * @throws IOException
+     */
+    public static void solutionAdmissible(ArrayList<Argument> listeArgument,ArrayList<ArrayList<Argument>> dejaVu){
+        
     }
 }
