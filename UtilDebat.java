@@ -372,7 +372,13 @@ public class UtilDebat {
             BufferedWriter bf = new BufferedWriter(fw);
           
             // Afficher l'ensembleE + admissible ou pas
-            bf.write(UtilDebat.verifSolution(ensembleE));
+            String str = UtilDebat.verifSolution(ensembleE);
+            if (str.equals("Admissible")){
+                bf.write("L'ensemble " +ensembleE+" est une solution admissible" );
+            }
+            else{
+                bf.write(UtilDebat.verifSolution(ensembleE));
+            }
             bf.close();
         }
 
