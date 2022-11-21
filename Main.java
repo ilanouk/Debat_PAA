@@ -81,11 +81,13 @@ public class Main {
                 if( choix==1){
                     
                     String solution = UtilDebat.verifSolution(ensembleE);
-                    if (solution.equals("Admissible") && listeSolution.contains(solution) ){
+                    if (solution.equals("Admissible") && !listeSolution.contains(ensembleE) ){
                         System.out.println(ensembleE + " est une solution admissible");
+                        listeSolution.add(ensembleE);
                     }
                     else{
                         System.out.println(solution);
+                        //chercher une autre solution dans listeSolution
                     }
                 }
 
