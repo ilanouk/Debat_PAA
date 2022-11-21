@@ -314,12 +314,10 @@ public class UtilDebat {
                 texte = bf.readLine();
                 StringTokenizer st = new StringTokenizer(texte,"(");
                 String argOuContr = st.nextToken();
-                System.out.println(argOuContr);
                 if (argOuContr.equals("argument")){
                     texte = st.nextToken();
                     
                     texte=texte.replace(")","");
-                    System.out.println(texte);
                     
                     ajouterArgumentSansSc(texte, liste);
                 }
@@ -329,7 +327,6 @@ public class UtilDebat {
                     
                     String arg1 = st2.nextToken();
                     String arg2 = st2.nextToken();
-                    System.out.println(arg1 + " " + arg2);
                     arg2 = arg2.replace(")","");
                     boolean ajout = ajoutContradiction(arg1,arg2, liste);
                     if (!ajout){
@@ -389,7 +386,54 @@ public class UtilDebat {
     }
 
 
-    public static void solutionAdmissible(ArrayList<Argument> listeArgument, ArrayList<Argument> ensembleE,ArrayList<ArrayList<Argument>> dejaVu){
+    public static ArrayList<Argument> solutionAdmissible(ArrayList<Argument> listeArgument, ArrayList<ArrayList<Argument>> dejaVu){
+         
+        ArrayList<Argument> ensembleE = new ArrayList<Argument>();
 
+        //Vérification de chaque élément
+        for(int i=0;i<listeArgument.size();i++){
+            for(int j=0; j<listeArgument.size();j++){
+
+                if(!ensembleE.contains(listeArgument.get(j))){
+                    ensembleE.add(listeArgument.get(j));
+                    verifSolution(ensembleE);
+                }
+                
+                System.out.println(ensembleE);
+
+                if(!dejaVu.contains(ensembleE)){
+                    dejaVu.add(ensembleE);
+                }
+                else{
+                    ensembleE.remove(listeArgument.get(j));
+                }
+            }
+        }
+        return null;
     }
+
+    /*private static void helper(ArrayList<Argument> listeArgument, int pos){
+
+        if(pos>=listeArgument.size()-1){
+            for(int i=0; i<listeArgument.size()-1; i++){
+                System.out.print(listeArgument.get(i)+",");
+            }
+            if(listeArgument.size()>0){
+                System.out.println(listeArgument.get(listeArgument.size()-1));
+            }
+            return;
+        }
+
+        for(int i=pos;i<listeArgument.size();i++){
+            Argument t = listeArgument.get(pos);
+            listeArgument.set(pos, listeArgument.get(i));
+            listeArgument.set(i, t);
+
+            helper(listeArgument, pos+1);
+
+            t = listeArgument.get(pos);
+            listeArgument.set(pos, listeArgument.get(i));
+            listeArgument.set(i, t);
+        }
+    }*/
 }

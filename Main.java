@@ -68,7 +68,7 @@ public class Main {
     
             UtilDebat.lireFichier("./test.txt", listeArgument); //test.txt n'est un parametre que pour les tests , decommenter la ligne avant apres les tests
             UtilDebat.sauvegarde(listeArgument,"./sauvegarde");
-            
+            UtilDebat.solutionAdmissible(listeArgument, listeSolution);
         }
         boucle = true;
         
