@@ -3,6 +3,8 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import javax.rmi.CORBA.Util;
+
 /**
  * @author Tigran WATTRELOS
  * @author Ilan' DAUMONT-OUK
@@ -56,12 +58,49 @@ public class Main {
                     sc.nextLine();
 
                 }
-
-
-
             }
+            boucle=true;
+            while(boucle){
+
+                try{
+                    System.out.println("1) Ajouter un argument \n2) Supprimer un argument \n3) Vérifier la solution \n4) Fin");
+                    int choix = sc.nextInt();
+
+                    if( choix==1){
+                        
+                        UtilDebat.ajouterArgument(listeArgument, ensembleE, sc);
+                    }
+
+                    else if (choix ==2){
+                        UtilDebat.supprimerArgument(listeArgument, ensembleE, sc);
+                    }
+
+                    else if (choix ==3){// Vérifier la solution
+                        String solution = UtilDebat.verifSolution(ensembleE);
+                        if( solution.equals("Admissible") ){
+                            System.out.println(ensembleE+" est une solution admissible");
+                        }
+                        else{
+                            System.out.println(solution);
+                        }
+                        
+                    }
+                    
+
+                    else if (choix ==4){ //Fin
+                        boucle = false;
+                    }
+                    else{
+                        System.out.println("Entrez un chiffre entre 1 et 4");
+                    }
+                }
+                catch(InputMismatchException e){
+                    System.out.println("Veuillez entrer un entier");
+                    sc.nextLine();
+                }
+            }sc.close();
         }
-        if (autoManuel == 2){ //Fichier
+        else if (autoManuel == 2){ //Fichier
             
             System.out.println("Entrez le chemin du fichier");
             //String nomFichier = sc.next();
@@ -69,56 +108,44 @@ public class Main {
             UtilDebat.lireFichier("./test.txt", listeArgument); //test.txt n'est un parametre que pour les tests , decommenter la ligne avant apres les tests
             UtilDebat.sauvegarde(listeArgument,"./sauvegarde");
             UtilDebat.solutionAdmissible(listeArgument, listeSolution);
-        }
-        boucle = true;
-        
-        while(boucle){
+    
+            boucle = true;
+            while(boucle){
 
-            try{
-                System.out.println("1) Chercher une solution admissible \n2) Chercher une solution préférée \n3) Sauvegarder la solution \n4) Fin");
-                int choix = sc.nextInt();
-
-                if( choix==1){
+                try{
                     
-                    String solution = UtilDebat.verifSolution(ensembleE);
-                    if (solution.equals("Admissible") && !listeSolution.contains(ensembleE) ){
-                        System.out.println(ensembleE + " est une solution admissible");
-                        listeSolution.add(ensembleE);
+                    System.out.println("1) Chercher une solution admissible \n2) Chercher une solution préférée \n3) Sauvegarder la solution \n4) Fin");
+                    int choix = sc.nextInt();
+
+                    if( choix==1){
+                        
                     }
+
+                    else if (choix ==2){
+                        UtilDebat.supprimerArgument(listeArgument, ensembleE, sc);
+                    }
+
+                    else if (choix ==3){// Sauvegarder la solution
+                        System.out.println("Veuiller entrer le chemin du fichier ");
+                        String lien =sc.nextLine();
+                        UtilDebat.sauvegarde(ensembleE, lien);
+                        
+                    }
+                    
+                    else if (choix ==4){ //Fin
+                        boucle = false;
+                    }
+
                     else{
-                        System.out.println(solution);
-                        //chercher une autre solution dans listeSolution
+                        System.out.println("Entrez un chiffre entre 1 et 4");
                     }
                 }
-
-                if (choix ==1){//ajouter un argument
-                
-                    UtilDebat.ajouterArgument( listeArgument, ensembleE, sc);    
+                catch(InputMismatchException e){
+                    System.out.println("Veuillez entrer un entier");
+                    sc.nextLine();
                 }
-
-                else if (choix ==2){
-                    UtilDebat.supprimerArgument(listeArgument, ensembleE, sc);
-                }
-
-                else if (choix ==3){// Sauvegarder la solution
-                    System.out.println("Veuiller entrer le chemin du fichier ");
-                    String lien =sc.nextLine();
-                    UtilDebat.sauvegarde(ensembleE, lien);
-                    
-                }
-                
-
-                else if (choix ==4){ //Fin
-                    boucle = false;
-                }
-                else{
-                    System.out.println("Entrez un chiffre entre 1 et 4");
-                }
-            }
-            catch(InputMismatchException e){
-                System.out.println("Veuillez entrer un entier");
-                sc.nextLine();
-            }
-        }sc.close();
+            }sc.close();
+            
+        }
     }
 }

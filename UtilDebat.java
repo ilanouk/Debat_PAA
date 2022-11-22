@@ -11,6 +11,8 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
+import javax.jws.soap.SOAPBinding;
+
 /**
  * @author Tigran WATTRELOS
  * @author Ilan' DAUMONT-OUK
@@ -388,52 +390,33 @@ public class UtilDebat {
 
     public static ArrayList<Argument> solutionAdmissible(ArrayList<Argument> listeArgument, ArrayList<ArrayList<Argument>> dejaVu){
          
-        ArrayList<Argument> ensembleE = new ArrayList<Argument>();
+        ArrayList<Argument> solComb = new ArrayList<Argument>(); //Liste tmp stockant les arguments
+        ArrayList<ArrayList<Argument>> inter = new ArrayList<ArrayList<Argument>>(); //Stock les combinaisons 
 
-        //Vérification de chaque élément
-        for(int i=0;i<listeArgument.size();i++){
-            for(int j=0; j<listeArgument.size();j++){
-
-                if(!ensembleE.contains(listeArgument.get(j))){
-                    ensembleE.add(listeArgument.get(j));
-                    verifSolution(ensembleE);
-                }
+        //Vérification de chaque élément seul
+        for( int i=0;i<listeArgument.size();i++ ){
+            solComb.add(listeArgument.get(i));
+            System.out.println(solComb);
+            if( !dejaVu.contains(solComb) && verifSolution(solComb).equals("Admissible") ){ //Si élément pas deja vu et admissible
+                dejaVu.add(solComb);
                 
-                System.out.println(ensembleE);
+            }
+            System.out.println(dejaVu);
+            solComb.clear();
+        }
 
-                if(!dejaVu.contains(ensembleE)){
-                    dejaVu.add(ensembleE);
-                }
-                else{
-                    ensembleE.remove(listeArgument.get(j));
+        //Vérifie pour toutes les combinaisons
+        for( int i=0;i<listeArgument.size();i++ ){
+            solComb.clear();
+            solComb.add(listeArgument.get(i));
+            for( int j=1;j<listeArgument.size();j++ ){
+                solComb.add(listeArgument.get(j));
+                if( !dejaVu.contains(solComb) && verifSolution(solComb).equals("Admissible") ){
+                    dejaVu.add(solComb);
+                    System.out.println(dejaVu);
                 }
             }
         }
         return null;
     }
-
-    /*private static void helper(ArrayList<Argument> listeArgument, int pos){
-
-        if(pos>=listeArgument.size()-1){
-            for(int i=0; i<listeArgument.size()-1; i++){
-                System.out.print(listeArgument.get(i)+",");
-            }
-            if(listeArgument.size()>0){
-                System.out.println(listeArgument.get(listeArgument.size()-1));
-            }
-            return;
-        }
-
-        for(int i=pos;i<listeArgument.size();i++){
-            Argument t = listeArgument.get(pos);
-            listeArgument.set(pos, listeArgument.get(i));
-            listeArgument.set(i, t);
-
-            helper(listeArgument, pos+1);
-
-            t = listeArgument.get(pos);
-            listeArgument.set(pos, listeArgument.get(i));
-            listeArgument.set(i, t);
-        }
-    }*/
 }

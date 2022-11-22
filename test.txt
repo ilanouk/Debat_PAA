@@ -4,4 +4,3 @@ argument(A3)
 contradiction(A1,A2)
 contradiction(A2,A1)
 contradiction(A2,A3)
-
