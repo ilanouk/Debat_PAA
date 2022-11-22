@@ -106,6 +106,7 @@ public class Main {
             //String nomFichier = sc.next();
     
             UtilDebat.lireFichier("./test.txt", listeArgument); //test.txt n'est un parametre que pour les tests , decommenter la ligne avant apres les tests
+            //-------------- TEST CI DESSOUS ------------------ et dessus
             UtilDebat.sauvegarde(listeArgument,"./sauvegarde");
             UtilDebat.solutionAdmissible(listeArgument, listeSolution);
     
@@ -113,16 +114,16 @@ public class Main {
             while(boucle){
 
                 try{
-                    
+
                     System.out.println("1) Chercher une solution admissible \n2) Chercher une solution préférée \n3) Sauvegarder la solution \n4) Fin");
                     int choix = sc.nextInt();
 
                     if( choix==1){
-                        
+                        UtilDebat.solutionAdmissible(listeArgument, listeSolution);
                     }
 
                     else if (choix ==2){
-                        UtilDebat.supprimerArgument(listeArgument, ensembleE, sc);
+                
                     }
 
                     else if (choix ==3){// Sauvegarder la solution
