@@ -61,12 +61,7 @@ public class UtilDebat {
             /*
                 * pour tout argument a qui contredit un élément de E , il existe un
                 * élément de E qui contredit a ; on dit alors que E se défend contre a
-                * Donc :
-                * 1) Parcourir les noeuds
-                * 2) verifier si il a des contradictions si non alors pas besoin de "3)""
-                * 3) Si oui : verifier si il a des parents. : si oui alors parcourir un autre argument sinon la solution n'est pas admissible.
-                * 
-                */
+            */
             Argument argum = null;
             boolean contientGP = false;
             for(Argument arg1 : ensembleE){
@@ -400,7 +395,6 @@ public class UtilDebat {
         }
 
         for(int i=0;i<touteCombianisonArgument.size();i++){
-
             if (verifSolution(touteCombianisonArgument.get(i)).equals("Admissible") ){
                 if (!dejaVu.contains(touteCombianisonArgument.get(i))){
                     dejaVu.add(touteCombianisonArgument.get(i));

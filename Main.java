@@ -120,7 +120,6 @@ public class Main {
                     int choix = sc.nextInt();
 
                     if( choix==1){
-                        System.out.println(dejaVu);
                         ArrayList <Argument> solAdmissible =UtilDebat.solutionAdmissible(listeArgument,dejaVu);
                         if (solAdmissible==null){
                             dejaVu.clear();
