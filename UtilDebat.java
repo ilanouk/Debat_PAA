@@ -385,37 +385,77 @@ public class UtilDebat {
 
     }
 
-
+    /** 
+     * La méthode prend en argument une liste d'argument et une liste d'argument déja vu et retourne un ensemble n'ayant pas déja était 
+     * présenter à l'utilisateur
+     * 
+     * @param listeArgument
+     * 
+     */
     public static ArrayList<Argument> solutionAdmissible(ArrayList<Argument> listeArgument, ArrayList<ArrayList<Argument>> dejaVu){
          
-        ArrayList<Argument> solComb = new ArrayList<Argument>(); //Liste tmp stockant les arguments
-
-        // ArrayList<ArrayList<Argument>> inter = new ArrayList<ArrayList<Argument>>(); //Stock les combinaisons 
-
-        //Vérification de chaque élément seul
-        for( Argument arg : listeArgument ){
-            solComb.add(arg);
-   
-            if( !dejaVu.contains(solComb) && verifSolution(solComb).equals("Admissible") ){ //Si élément pas deja vu et admissible
-                dejaVu.add(solComb);
-                System.out.println(solComb);
-            }
-            solComb= new ArrayList<Argument>();;
+        ArrayList<ArrayList<Argument>> touteCombianisonArgument = getAllCombinaition(listeArgument);
+        if(dejaVu.size()==touteCombianisonArgument.size()){ // Pas la bonne condition
+            dejaVu.clear();
         }
 
-        //Vérifie pour toutes les 2 combinaisons
-        for( Argument arg1 : listeArgument ){
-            solComb = new ArrayList<Argument>();
-            solComb.add(arg1);
+        for(int i=0;i<touteCombianisonArgument.size();i++){
 
-            for( Argument arg2 : listeArgument ){
-                solComb.add(arg2);
-                if( !dejaVu.contains(solComb) && verifSolution(solComb).equals("Admissible") && arg1!=arg2 ){
-                    dejaVu.add(solComb);
-                    System.out.println(solComb);
+            if (verifSolution(touteCombianisonArgument.get(i)).equals("Admissible") ){
+                if (!dejaVu.contains(touteCombianisonArgument.get(i))){
+                    dejaVu.add(touteCombianisonArgument.get(i));
+                    return(touteCombianisonArgument.get(i));
                 }
             }
+            
         }
         return null;
+
+
+    }
+
+
+    /** 
+     * La méthode prend en argument un int et retourne toute les combinaisons possibles en code bianire
+     * 
+     * @param tailleListe
+     * 
+     */
+    private static ArrayList<String> getAllBinairy(int tailleListe){
+
+        ArrayList<String> allBinairy = new ArrayList<>();
+        for (int i=0;i<Math.pow(2, tailleListe);i++){
+            String binairy = Integer.toBinaryString(i);
+            while(binairy.length()<tailleListe){
+                binairy = "0" + binairy;
+            }
+            allBinairy.add(binairy);
+            
+
+        }
+        
+        return allBinairy;
+    }
+    /** 
+     * La méthode prend en argument une liste d'argument et retourne toute les combinaisons possibles d'arguments
+     * 
+     * @param listeArgument
+     * 
+     */
+    private static ArrayList<ArrayList<Argument>> getAllCombinaition(ArrayList<Argument> listeArgument){
+        ArrayList<String> allBinairy = getAllBinairy(listeArgument.size());
+        ArrayList<ArrayList<Argument>> listeTouteSolution = new ArrayList<>();
+        for(int i = 0;i<allBinairy.size();i++){
+            ArrayList<Argument> inter = new ArrayList<>();
+            for (int j =0;j<listeArgument.size();j++){
+                if(allBinairy.get(i).charAt(j)=='1'){
+                    inter.add(listeArgument.get(j));
+                }
+            }
+            listeTouteSolution.add(inter);
+            
+        }
+        return listeTouteSolution;
+
     }
 }

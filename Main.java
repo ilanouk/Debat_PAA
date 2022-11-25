@@ -3,8 +3,6 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import javax.rmi.CORBA.Util;
-
 /**
  * @author Tigran WATTRELOS
  * @author Ilan' DAUMONT-OUK
@@ -20,6 +18,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         ArrayList <Argument> ensembleE = new ArrayList<Argument>();
         ArrayList <ArrayList<Argument>> listeSolution= new ArrayList<ArrayList<Argument>>(); //Pour fichier
+        ArrayList <ArrayList<Argument>> dejaVu= new ArrayList<ArrayList<Argument>>();
         int autoManuel= -1;
         
 
@@ -104,9 +103,11 @@ public class Main {
             
             System.out.println("Entrez le chemin du fichier");
             //String nomFichier = sc.next();
-    
+            
+            
             UtilDebat.lireFichier("./test.txt", listeArgument); //test.txt n'est un parametre que pour les tests , decommenter la ligne avant apres les tests
             //-------------- TEST CI DESSOUS ------------------ et dessus
+            
             UtilDebat.sauvegarde(listeArgument,"./sauvegarde");
             UtilDebat.solutionAdmissible(listeArgument, listeSolution);
     
@@ -119,7 +120,13 @@ public class Main {
                     int choix = sc.nextInt();
 
                     if( choix==1){
-                        UtilDebat.solutionAdmissible(listeArgument, listeSolution);
+                        System.out.println(dejaVu);
+                        ArrayList <Argument> solAdmissible =UtilDebat.solutionAdmissible(listeArgument,dejaVu);
+                        if (solAdmissible==null){
+                            dejaVu.clear();
+                            solAdmissible =UtilDebat.solutionAdmissible(listeArgument,dejaVu);
+                        }
+                        System.out.println("solution admissible : "+solAdmissible);
                     }
 
                     else if (choix ==2){
