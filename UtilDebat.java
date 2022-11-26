@@ -63,8 +63,9 @@ public class UtilDebat {
                 * élément de E qui contredit a ; on dit alors que E se défend contre a
             */
             Argument argum = null;
-            boolean contientGP = false;
+            
             for(Argument arg1 : ensembleE){
+                boolean contientGP = false;
                 for (Argument parent : arg1.getlisteParent()){
                     if(parent.getlisteParent().isEmpty() ){
                         admissible = false;
