@@ -112,15 +112,18 @@ public class Main {
             UtilDebat.solutionAdmissible(listeArgument, listeSolution);
     
             boucle = true;
+            boolean solDejaDemande = false;
             while(boucle){
 
                 try{
-
+                    ArrayList <Argument> solAdmissible;
+                    
                     System.out.println("1) Chercher une solution admissible \n2) Chercher une solution préférée \n3) Sauvegarder la solution \n4) Fin");
                     int choix = sc.nextInt();
 
                     if( choix==1){
-                        ArrayList <Argument> solAdmissible =UtilDebat.solutionAdmissible(listeArgument,dejaVu);
+                        solDejaDemande = true;
+                        solAdmissible =UtilDebat.solutionAdmissible(listeArgument,dejaVu);
                         if (solAdmissible==null){
                             dejaVu.clear();
                             solAdmissible =UtilDebat.solutionAdmissible(listeArgument,dejaVu);
@@ -129,13 +132,19 @@ public class Main {
                     }
 
                     else if (choix ==2){
-                
+                        solDejaDemande = true;
                     }
 
                     else if (choix ==3){// Sauvegarder la solution
-                        System.out.println("Veuiller entrer le chemin du fichier ");
-                        String lien =sc.nextLine();
-                        UtilDebat.sauvegarde(ensembleE, lien);
+                        if (solDejaDemande){
+                            System.out.println("Veuiller entrer le chemin du fichier ");
+                            String lien =sc.nextLine();
+                            UtilDebat.sauvegarde(ensembleE, lien);
+                        }
+                        else{
+                            System.out.println("Veuillez séléctionner d'abord le choix 1 ou 2");
+                        }
+                        
                         
                     }
                     
