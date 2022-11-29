@@ -24,12 +24,16 @@ public class Main {
         
 
         while (boucle){
-            System.out.println("Voulez vous remplir les arguments et contradictions : \n 1) Manuellement \n 2) A l'aide d'un fichier");
-            autoManuel = sc.nextInt();
-            if (autoManuel== 1 || autoManuel== 2){
-                boucle = false;
+            try{
+                System.out.println("Voulez vous remplir les arguments et contradictions : \n 1) Manuellement \n 2) A l'aide d'un fichier");
+                autoManuel = sc.nextInt();
+                if (autoManuel== 1 || autoManuel== 2){
+                    boucle = false;
+                }
+            }catch (InputMismatchException e){
+                System.out.println("Veuillez entrer un nombre");
+                sc.next();
             }
-            
         }
         
         boucle = true;
