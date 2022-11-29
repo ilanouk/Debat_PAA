@@ -133,6 +133,8 @@ public class Main {
 
                     else if (choix ==2){
                         solDejaDemande = true;
+                        solAdmissible =UtilDebat.solutionPreferee(listeArgument,dejaVu);
+                        System.out.println("solution préférée : "+solAdmissible);   
                     }
 
                     else if (choix ==3){// Sauvegarder la solution

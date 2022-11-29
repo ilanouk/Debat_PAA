@@ -405,8 +405,32 @@ public class UtilDebat {
             
         }
         return null;
+    }
 
+    /**
+     * la méthode prend en argument une liste d'argument et la liste des arguments connus
+     * 
+     * @param listeArgument
+     * @param dejaVu
+     * @return une liste de liste d'argument contenant la solution admissible la plus grande
+     */
+    public static ArrayList<Argument> solutionPreferee(ArrayList<Argument> listeArgument, ArrayList<ArrayList<Argument>> dejaVu){
+         
+        ArrayList<ArrayList<Argument>> touteCombianisonArgument = getAllCombinaition(listeArgument);
+        if( dejaVu.size()==touteCombianisonArgument.size() ){ // Pas la bonne condition
+            dejaVu.clear();
+        }
 
+        for( int i=touteCombianisonArgument.size()-1;i>=0;i-- ){
+            if ( verifSolution(touteCombianisonArgument.get(i)).equals("Admissible") ){
+                if ( dejaVu.contains(touteCombianisonArgument.get(i)) ){
+                    dejaVu.add(touteCombianisonArgument.get(i));
+                    return(touteCombianisonArgument.get(i));
+                }
+            }
+            
+        }
+        return null;
     }
 
 
