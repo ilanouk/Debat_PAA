@@ -388,7 +388,7 @@ public class UtilDebat {
      * @param listeArgument
      * 
      */
-    public static ArrayList<Argument> solutionAdmissible(ArrayList<Argument> listeArgument, ArrayList<ArrayList<Argument>> dejaVu, ArrayList<ArrayList<Argument>> listeSolution){
+    public static ArrayList<Argument> solutionAdmissible( ArrayList<ArrayList<Argument>> dejaVu, ArrayList<ArrayList<Argument>> listeSolution){
          
         if(dejaVu.size()==listeSolution.size()){ // Pas la bonne condition
             dejaVu.clear();
@@ -466,5 +466,24 @@ public class UtilDebat {
         }
         return listeTouteSolution;
 
+    }
+    public static ArrayList<Argument> solutionPref(ArrayList<ArrayList<Argument>> dejaVu, ArrayList<ArrayList<Argument>> listeSolution){
+        ArrayList<Argument> solMax = listeSolution.get(0);
+        for(ArrayList<Argument> liste : listeSolution){
+            if(liste.size()>solMax.size()){
+                solMax = liste;
+            }
+        }
+        for(ArrayList<Argument>sol : listeSolution){
+            if (!dejaVu.contains(sol)){
+                if(sol.size()==solMax.size()){
+                    dejaVu.add(sol);
+                    return sol;
+                }
+            }
+            
+        }
+        dejaVu.clear();
+        return null;
     }
 }

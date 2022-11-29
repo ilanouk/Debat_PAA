@@ -19,6 +19,7 @@ public class Main {
         ArrayList <Argument> ensembleE = new ArrayList<Argument>();
         ArrayList <ArrayList<Argument>> listeSolution= new ArrayList<ArrayList<Argument>>(); //Pour fichier
         ArrayList <ArrayList<Argument>> dejaVu= new ArrayList<ArrayList<Argument>>();
+        ArrayList <ArrayList<Argument>> dejaVuPref= new ArrayList<ArrayList<Argument>>();
         int autoManuel= -1;
         
 
@@ -104,7 +105,6 @@ public class Main {
             System.out.println("Entrez le chemin du fichier");
             String nomFichier = sc.next();
             UtilDebat.lireFichier(nomFichier, listeArgument);
-    
             boucle = true;
             boolean solDejaDemande = false;
             while(boucle){
@@ -117,18 +117,21 @@ public class Main {
 
                     if( choix==1){
                         solDejaDemande = true;
-                        solAdmissible =UtilDebat.solutionAdmissible(listeArgument,dejaVu, listeSolution);
+                        solAdmissible =UtilDebat.solutionAdmissible(dejaVu, listeSolution);
                         if (solAdmissible==null){
                             dejaVu.clear();
-                            solAdmissible =UtilDebat.solutionAdmissible(listeArgument,dejaVu,listeSolution);
+                            solAdmissible =UtilDebat.solutionAdmissible(dejaVu,listeSolution);
                         }
                         System.out.println("solution admissible : "+solAdmissible);
                     }
 
                     else if (choix ==2){
                         solDejaDemande = true;
-                        // solAdmissible =UtilDebat.solutionPreferee(listeArgument,dejaVu);
-                        // System.out.println("solution préférée : "+solAdmissible);   
+                         ensembleE =UtilDebat.solutionPref(dejaVuPref,listeSolution);
+                         if(ensembleE==null){
+                            ensembleE =UtilDebat.solutionPref(dejaVuPref,listeSolution);
+                         }
+                         System.out.println("solution préférée : "+ensembleE);   
                     }
 
                     else if (choix ==3){// Sauvegarder la solution
