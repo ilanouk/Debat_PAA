@@ -388,21 +388,17 @@ public class UtilDebat {
      * @param listeArgument
      * 
      */
-    public static ArrayList<Argument> solutionAdmissible(ArrayList<Argument> listeArgument, ArrayList<ArrayList<Argument>> dejaVu){
+    public static ArrayList<Argument> solutionAdmissible(ArrayList<Argument> listeArgument, ArrayList<ArrayList<Argument>> dejaVu, ArrayList<ArrayList<Argument>> listeSolution){
          
-        ArrayList<ArrayList<Argument>> touteCombianisonArgument = getAllCombinaition(listeArgument);
-        if(dejaVu.size()==touteCombianisonArgument.size()){ // Pas la bonne condition
+        if(dejaVu.size()==listeSolution.size()){ // Pas la bonne condition
             dejaVu.clear();
         }
 
-        for(int i=0;i<touteCombianisonArgument.size();i++){
-            if (verifSolution(touteCombianisonArgument.get(i)).equals("Admissible") ){
-                if (!dejaVu.contains(touteCombianisonArgument.get(i))){
-                    dejaVu.add(touteCombianisonArgument.get(i));
-                    return(touteCombianisonArgument.get(i));
-                }
+        for(int i=0;i<listeSolution.size();i++){
+            if (!dejaVu.contains(listeSolution.get(i))){
+                dejaVu.add(listeSolution.get(i));
+                return(listeSolution.get(i));
             }
-            
         }
         return null;
     }
@@ -414,23 +410,17 @@ public class UtilDebat {
      * @param dejaVu
      * @return une liste de liste d'argument contenant la solution admissible la plus grande
      */
-    public static ArrayList<Argument> solutionPreferee(ArrayList<Argument> listeArgument, ArrayList<ArrayList<Argument>> dejaVu){
+    public static ArrayList<ArrayList<Argument>> recupListeSolution(ArrayList<Argument> listeArgument, ArrayList<ArrayList<Argument>> listeSolution){
          
         ArrayList<ArrayList<Argument>> touteCombianisonArgument = getAllCombinaition(listeArgument);
-        if( dejaVu.size()==touteCombianisonArgument.size() ){ // Pas la bonne condition
-            dejaVu.clear();
-        }
 
         for( int i=touteCombianisonArgument.size()-1;i>=0;i-- ){
             if ( verifSolution(touteCombianisonArgument.get(i)).equals("Admissible") ){
-                if ( dejaVu.contains(touteCombianisonArgument.get(i)) ){
-                    dejaVu.add(touteCombianisonArgument.get(i));
-                    return(touteCombianisonArgument.get(i));
-                }
+                listeSolution.add(touteCombianisonArgument.get(i));
             }
             
         }
-        return null;
+        return listeSolution;
     }
 
 

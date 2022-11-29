@@ -102,44 +102,39 @@ public class Main {
         else if (autoManuel == 2){ //Fichier
             
             System.out.println("Entrez le chemin du fichier");
-            //String nomFichier = sc.next();
-            
-            
-            UtilDebat.lireFichier("./test.txt", listeArgument); //test.txt n'est un parametre que pour les tests , decommenter la ligne avant apres les tests
-            //-------------- TEST CI DESSOUS ------------------ et dessus
-            
-            UtilDebat.sauvegarde(listeArgument,"./sauvegarde");
-            UtilDebat.solutionAdmissible(listeArgument, listeSolution);
+            String nomFichier = sc.next();
+            UtilDebat.lireFichier(nomFichier, listeArgument);
     
             boucle = true;
             boolean solDejaDemande = false;
             while(boucle){
 
                 try{
-                    ArrayList <Argument> solAdmissible;
-                    
+                    listeSolution = UtilDebat.recupListeSolution(listeArgument, listeSolution);
+                    ArrayList <Argument> solAdmissible;                    
                     System.out.println("1) Chercher une solution admissible \n2) Chercher une solution préférée \n3) Sauvegarder la solution \n4) Fin");
                     int choix = sc.nextInt();
 
                     if( choix==1){
                         solDejaDemande = true;
-                        solAdmissible =UtilDebat.solutionAdmissible(listeArgument,dejaVu);
+                        solAdmissible =UtilDebat.solutionAdmissible(listeArgument,dejaVu, listeSolution);
                         if (solAdmissible==null){
                             dejaVu.clear();
-                            solAdmissible =UtilDebat.solutionAdmissible(listeArgument,dejaVu);
+                            solAdmissible =UtilDebat.solutionAdmissible(listeArgument,dejaVu,listeSolution);
                         }
                         System.out.println("solution admissible : "+solAdmissible);
                     }
 
                     else if (choix ==2){
                         solDejaDemande = true;
-                        solAdmissible =UtilDebat.solutionPreferee(listeArgument,dejaVu);
-                        System.out.println("solution préférée : "+solAdmissible);   
+                        // solAdmissible =UtilDebat.solutionPreferee(listeArgument,dejaVu);
+                        // System.out.println("solution préférée : "+solAdmissible);   
                     }
 
                     else if (choix ==3){// Sauvegarder la solution
                         if (solDejaDemande){
                             System.out.println("Veuiller entrer le chemin du fichier ");
+                            sc.nextLine(); //on vide le buffer
                             String lien =sc.nextLine();
                             UtilDebat.sauvegarde(ensembleE, lien);
                         }
