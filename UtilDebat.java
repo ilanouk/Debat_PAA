@@ -337,7 +337,7 @@ public class UtilDebat {
 
         catch(FileNotFoundException e){
             System.out.println("Le fichier n'existe pas"); // Quand pas de fichier, ressaisir le nom du fichier
-            System.exit(i); //A CHANGER 
+            lireFichier(lienFichier, liste);
         }
         catch(IOException e){
             System.out.println("Il y a un problème dans la lecture du fichier");
