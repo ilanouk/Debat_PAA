@@ -272,7 +272,7 @@ public class UtilDebat {
      * @param liste 
      */
      
-    public static void ajouterArgumentSansSc(String nom,ArrayList<Argument> liste){ //Private ???
+    private static void ajouterArgumentSansSc(String nom,ArrayList<Argument> liste){ 
         boolean contientArgu = false;
                 
         for(int j = 0 ; j<liste.size();j++) {
@@ -351,7 +351,13 @@ public class UtilDebat {
 
     }
 
-
+    /*
+     * La méthode prend en argument un ensemble d'arguments et permet de le sauvegarder dans un fichier correspondant au à lienFichier.
+     * 
+     * @param ensembleE
+     * @param lienFichier
+     * @throws IOException
+     */
     public static void sauvegarde(ArrayList<Argument> ensembleE,String lienFichier){
 
         try{
@@ -384,6 +390,7 @@ public class UtilDebat {
      * présenter à l'utilisateur
      * 
      * @param listeArgument
+     * @return ensemble des solutions admissibles
      * 
      */
     public static ArrayList<Argument> solutionAdmissible( ArrayList<ArrayList<Argument>> dejaVu, ArrayList<ArrayList<Argument>> listeSolution){
@@ -426,7 +433,7 @@ public class UtilDebat {
      * La méthode prend en argument un int et retourne toute les combinaisons possibles en code bianire
      * 
      * @param tailleListe
-     * 
+     * @return une liste de liste d'argument contenant toute les combinaisons possibles en binaire
      */
     private static ArrayList<String> getAllBinairy(int tailleListe){
 
@@ -447,8 +454,9 @@ public class UtilDebat {
      * La méthode prend en argument une liste d'argument et retourne toute les combinaisons possibles d'arguments
      * 
      * @param listeArgument
-     * 
+     * @return une liste de liste d'argument contenant toute les combinaisons possibles d'arguments
      */
+    
     private static ArrayList<ArrayList<Argument>> getAllCombinaition(ArrayList<Argument> listeArgument){
         ArrayList<String> allBinairy = getAllBinairy(listeArgument.size());
         ArrayList<ArrayList<Argument>> listeTouteSolution = new ArrayList<>();
@@ -465,6 +473,17 @@ public class UtilDebat {
         return listeTouteSolution;
 
     }
+
+
+    /** 
+     * La méthode prend en argument une liste de liste d'argument qui contient tout les ensembles déjà proposé à l'utilistateur
+     * et une liste de solution.
+     * Elle retourne une solution préféré pas déja proposé à l'utilisateur
+     * 
+     * @param dejaVu
+     * @param listeSolution
+     * @return une liste d'argument contenant une solution préféré pas déja proposé à l'utilisateur
+     */
     public static ArrayList<Argument> solutionPref(ArrayList<ArrayList<Argument>> dejaVu, ArrayList<ArrayList<Argument>> listeSolution){
         ArrayList<Argument> solMax = listeSolution.get(0);
         for(ArrayList<Argument> liste : listeSolution){
@@ -484,17 +503,29 @@ public class UtilDebat {
         dejaVu.clear();
         return null;
     }
+    /*
+     * La méthode prend en argument un scanner et retourne le fichier correspondant à l'entrée de l'utilisateur
+     * si l'utilisateur entre un mauvais fichier, la méthode lui redemande un fichier
+     * 
+     * @param sc
+     * @return le fichier correspondant à l'entrée de l'utilisateur
+     */
 
     public static File getFichier(Scanner sc){
         File f = null;
         String nomFichier =  null;
+        boolean condition =false;
         do{
+            if(condition){
+                System.out.println("Le fichier n'existe pas");
+            }
+            condition = true;
             System.out.println("Veuillez saisir le nom du fichier");
             nomFichier = sc.nextLine();
             f = new File(nomFichier);
            
-        }
-        while (!f.exists());
+        }while (!f.exists());
+        
         return f;
     }
 
