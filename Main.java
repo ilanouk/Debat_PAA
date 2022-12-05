@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -105,10 +106,9 @@ public class Main {
             }sc.close();
         }
         else if (autoManuel == 2){ //Fichier
-            
-            System.out.println("Entrez le chemin du fichier");
-            String nomFichier = sc.next();
-            UtilDebat.lireFichier(nomFichier, listeArgument);
+            sc.nextLine();
+            File fichier = UtilDebat.getFichier(sc);
+            UtilDebat.lireFichier(fichier, listeArgument);
             boucle = true;
             boolean solDejaDemande = false;
             while(boucle){

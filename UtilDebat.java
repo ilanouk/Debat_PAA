@@ -297,10 +297,9 @@ public class UtilDebat {
      * @param lienFichier
      * @throws IOException
      */
-    public static void lireFichier(String lienFichier,ArrayList<Argument> liste) {
+    public static void lireFichier( File f,ArrayList<Argument> liste) {
         int i=0;
         try{
-            File f = new File(lienFichier);
             FileReader fis = new FileReader(f);
             BufferedReader bf = new BufferedReader(fis);
             String texte;
@@ -337,7 +336,6 @@ public class UtilDebat {
 
         catch(FileNotFoundException e){
             System.out.println("Le fichier n'existe pas"); // Quand pas de fichier, ressaisir le nom du fichier
-            lireFichier(lienFichier, liste);
         }
         catch(IOException e){
             System.out.println("Il y a un problème dans la lecture du fichier");
@@ -486,4 +484,18 @@ public class UtilDebat {
         dejaVu.clear();
         return null;
     }
+
+    public static File getFichier(Scanner sc){
+        File f = null;
+        String nomFichier =  null;
+        do{
+            System.out.println("Veuillez saisir le nom du fichier");
+            nomFichier = sc.nextLine();
+            f = new File(nomFichier);
+           
+        }
+        while (!f.exists());
+        return f;
+    }
+
 }
