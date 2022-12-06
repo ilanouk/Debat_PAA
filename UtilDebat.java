@@ -74,7 +74,7 @@ public class UtilDebat {
                     }
                     else{
                         for (Argument grandPere : parent.getlisteParent()){
-                            if (ensembleE.contains(grandPere)){
+                            if (ensembleE.contains(grandPere) && arg1.getlisteParent().contains(parent)){
                                 contientGP = true;
                             }
                         }
