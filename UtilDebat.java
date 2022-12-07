@@ -105,9 +105,9 @@ public class UtilDebat {
                 }
             }
 
-            if(serpent(argum, ensembleE)){
-                admissible = false;
-            }
+            // if(serpent(argum, ensembleE)){
+            //     admissible = false;
+            // }
            
             if( admissible ){
                 return("Admissible");
@@ -507,34 +507,36 @@ public class UtilDebat {
      * @return une liste d'argument contenant une solution préféré pas déja proposé à l'utilisateur
      */
     public static ArrayList<Argument> solutionPref(ArrayList<ArrayList<Argument>> dejaVu, ArrayList<ArrayList<Argument>> listeSolution){
-        ArrayList<Argument> solMax = new ArrayList<>();
+        // ArrayList<Argument> solMax = new ArrayList<>();
         
-        for(int i=0;i<listeSolution.size();i++){
-            //si les arguments des solutions admissibles ne sont pas dans d'autres solutions admissibles, on les ajoute à la liste des solutions préférées
-            if ( !dejaVu.contains(listeSolution.get(i)) && listeSolution.get(i).size()>solMax.size() ){
-                solMax = listeSolution.get(i);
-            }
-                solMax = listeSolution.get(i);
-            }
-        return solMax;
+        // for(int i=0;i<listeSolution.size();i++){
+        //     //si les arguments des solutions admissibles ne sont pas dans d'autres solutions admissibles, on les ajoute à la liste des solutions préférées
+        //     if ( !dejaVu.contains(listeSolution.get(i)) && listeSolution.get(i).size()>solMax.size() ){
+        //         solMax = listeSolution.get(i);
+        //     }
+        //         solMax = listeSolution.get(i);
+        //     }
+        // return solMax;
         
-        // ArrayList<Argument> solMax = listeSolution.get(0);
-        // for(ArrayList<Argument> liste : listeSolution){
-        //     if(liste.size()>solMax.size()){
-        //         solMax = liste;
-        //     }
-        // }
-        // for(ArrayList<Argument>sol : listeSolution){
-        //     if (!dejaVu.contains(sol)){
-        //         if(sol.size()==solMax.size()){
-        //             dejaVu.add(sol);
-        //             return sol;
-        //         }
-        //     }
+        ArrayList<Argument> solMax = listeSolution.get(0);
+        for(ArrayList<Argument> liste : listeSolution){
+            if(liste.size()>solMax.size()){
+                solMax = liste;
+            }
+        }
+        for(ArrayList<Argument>sol : listeSolution){
+            if (!dejaVu.contains(sol)){
+                if(sol.size()==solMax.size()){
+                    //si des arguments de sol ne sont pas dans solMax, on les ajoute à solMax
+                    
+                    dejaVu.add(sol);
+                    return sol;
+                }
+            }
             
-        // }
-        // dejaVu.clear();
-        // return null;
+        }
+        dejaVu.clear();
+        return null;
     }
     /*
      * La méthode prend en argument un scanner et retourne le fichier correspondant à l'entrée de l'utilisateur
