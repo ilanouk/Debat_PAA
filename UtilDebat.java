@@ -11,6 +11,7 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
+
 /**
  * @author Tigran WATTRELOS
  * @author Ilan' DAUMONT-OUK
@@ -20,21 +21,41 @@ import java.util.StringTokenizer;
 public class UtilDebat {
 
 
-    public static boolean serpent(Argument argument, ArrayList<Argument> parentDejaVu){
-        if(parentDejaVu.contains(argument)){
-            return false;
-        }
-        else{
-            parentDejaVu.add(argument);
-            for(Argument parent : argument.getlisteParent()){
-                if(parent!=null){
-                    if(!serpent(parent,parentDejaVu)){
-                        return false;
-                    }
-                }
+    public static boolean serpent(Argument arg,ArrayList<Argument> EnsembleE, ArrayList<Argument > dejaVu){
+        boolean parentDansEnsembleE = true;
+        dejaVu.add(arg);
+        System.out.println("Ensemble e : " +EnsembleE);
+
+        for (Argument parent : arg.getlisteParent()){
+            if(EnsembleE.contains(parent)){
+                parentDansEnsembleE = false;
             }
         }
-        return false;
+
+        if (arg.getlisteParent().isEmpty() ){
+            return true;
+        }
+
+        
+        
+        else if (!parentDansEnsembleE){
+            return true;
+        }
+        else{
+            System.out.println(dejaVu);
+            if (dejaVu.contains(arg)){
+                return false;
+            }
+            
+            else if (!serpent(arg.getlisteParent().get(0),EnsembleE,dejaVu)){
+                
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
+
     }
 
     /** La méthode vérifie si l'ensemble est une solution admissible
@@ -81,6 +102,7 @@ public class UtilDebat {
                 * élément de E qui contredit a ; on dit alors que E se défend contre a
             */
             Argument argum = null;
+            Argument argumSerpent = ensembleE.get(0);
             
             for(Argument arg1 : ensembleE){
                 boolean contientGP = false;
@@ -104,10 +126,10 @@ public class UtilDebat {
                     }
                 }
             }
-
-            // if(serpent(argum, ensembleE)){
-            //     admissible = false;
-            // }
+            
+            if(serpent(argumSerpent, ensembleE,new ArrayList<Argument>())){
+                 admissible = false;
+             }
            
             if( admissible ){
                 return("Admissible");
