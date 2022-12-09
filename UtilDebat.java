@@ -529,36 +529,37 @@ public class UtilDebat {
      * @return une liste d'argument contenant une solution préféré pas déja proposé à l'utilisateur
      */
     public static ArrayList<Argument> solutionPref(ArrayList<ArrayList<Argument>> dejaVu, ArrayList<ArrayList<Argument>> listeSolution){
-        // ArrayList<Argument> solMax = new ArrayList<>();
-        
-        // for(int i=0;i<listeSolution.size();i++){
-        //     //si les arguments des solutions admissibles ne sont pas dans d'autres solutions admissibles, on les ajoute à la liste des solutions préférées
-        //     if ( !dejaVu.contains(listeSolution.get(i)) && listeSolution.get(i).size()>solMax.size() ){
-        //         solMax = listeSolution.get(i);
-        //     }
-        //         solMax = listeSolution.get(i);
-        //     }
-        // return solMax;
-        
-        ArrayList<Argument> solMax = listeSolution.get(0);
-        for(ArrayList<Argument> liste : listeSolution){
-            if(liste.size()>solMax.size()){
-                solMax = liste;
-            }
-        }
-        for(ArrayList<Argument>sol : listeSolution){
-            if (!dejaVu.contains(sol)){
-                if(sol.size()==solMax.size()){
-                    //si des arguments de sol ne sont pas dans solMax, on les ajoute à solMax
-                    
-                    dejaVu.add(sol);
-                    return sol;
+
+        ArrayList<Argument> solMax = new ArrayList<>();
+        ArrayList<ArrayList<Argument>> listTmp = new ArrayList<>();
+        ArrayList<Argument> listRef = new ArrayList<>();
+        boolean contient = false;
+
+        // On parcours la liste des solutions
+        for(int i=0;i<listeSolution.size();i++){
+            listTmp = listeSolution;
+            listRef=listeSolution.get(i); //La liste de référence stocke la liste d'argument que l'on va comparer avec les autres listes
+            listTmp.remove(i); // On supprime la liste de référence de la liste des solutions pour ne pas la comparer avec elle même
+
+            for(ArrayList<Argument> list : listTmp){
+                for(Argument argument : list){
+                    if(!listRef.contains(argument) && !solMax.contains(argument)){ // Si l'argument n'est pas dans la liste de référence et n'est pas dans la solution maximale
+                        contient=true;
+                    }
                 }
+                if(contient){ // alors on ajoute la liste à la liste des solutions maximales
+                    for(Argument argument : list){
+                        if(argument!=null)
+                            solMax.add(argument);
+                    }
+                    
+                }
+                return solMax;
             }
-            
+            listTmp.clear(); // On vide les listes temporaires
+            listRef.clear();
         }
-        dejaVu.clear();
-        return null;
+        return null; //PEUT ETRE QUE C'EST LE RETURN NULL QUI RENVOIE UNE LISTE VIDE
     }
     /*
      * La méthode prend en argument un scanner et retourne le fichier correspondant à l'entrée de l'utilisateur
