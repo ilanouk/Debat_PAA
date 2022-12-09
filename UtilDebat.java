@@ -374,7 +374,7 @@ public class UtilDebat {
 
                 }
             }
-            
+            bf.close(); //fermeture du fichier ****************SI ERREUR C'EST ICI
             
         }
 
@@ -543,24 +543,24 @@ public class UtilDebat {
 
             for(ArrayList<Argument> list : listTmp){
                 for(Argument argument : list){
-                    if(!listRef.contains(argument) && !solMax.contains(argument)){ // Si l'argument n'est pas dans la liste de référence et n'est pas dans la solution maximale
+                    if(!listRef.contains(argument)){ // Si l'argument n'est pas dans la liste de référence et n'est pas dans la solution maximale
                         contient=true;
                     }
                 }
-                if(contient){ // alors on ajoute la liste à la liste des solutions maximales
+
+                if(contient && !solMax.containsAll(listRef) ){ // alors on ajoute la liste à la liste des solutions maximales
                     for(Argument argument : list){
-                        if(argument!=null)
-                            solMax.add(argument);
+                        solMax.add(argument);
                     }
-                    
+                    return solMax; 
                 }
-                return solMax;
+                
             }
-            listTmp.clear(); // On vide les listes temporaires
-            listRef.clear();
         }
-        return null; //PEUT ETRE QUE C'EST LE RETURN NULL QUI RENVOIE UNE LISTE VIDE
+        return null;
     }
+
+
     /*
      * La méthode prend en argument un scanner et retourne le fichier correspondant à l'entrée de l'utilisateur
      * si l'utilisateur entre un mauvais fichier, la méthode lui redemande un fichier
