@@ -542,13 +542,11 @@ public class UtilDebat {
             listTmp.remove(i); // On supprime la liste de référence de la liste des solutions pour ne pas la comparer avec elle même
 
             for(ArrayList<Argument> list : listTmp){
-                for(Argument argument : list){
-                    if(!listRef.contains(argument)){ // Si l'argument n'est pas dans la liste de référence et n'est pas dans la solution maximale
-                        contient=true;
-                    }
+                if(!listRef.containsAll(list)){ // Si la liste de référence ne contient pas tous les arguments de la liste que l'on compare
+                    contient=true;
                 }
 
-                if(contient && !solMax.containsAll(listRef) ){ // alors on ajoute la liste à la liste des solutions maximales
+                if(contient && !solMax.containsAll(listRef)){ // alors on ajoute la liste à la liste des solutions maximales
                     for(Argument argument : list){
                         solMax.add(argument);
                     }
