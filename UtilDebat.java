@@ -47,14 +47,7 @@ public class UtilDebat {
                 }
 
             }
-        }
-
-            //Revommencer 
-            //Verifier si parent pas dans solution
-
-          
-
-            
+        }     
 
         // Rechercher si un argument n'est pas défendu face à toutes ses contradictions
         /*
@@ -73,7 +66,7 @@ public class UtilDebat {
                 }
                 else{
                     for (Argument grandPere : parent.getlisteParent()){
-                        if (ensembleE.contains(grandPere) && arg1.getlisteParent().contains(parent)){
+                        if (ensembleE.contains(grandPere) && arg1.getlisteParent().contains(parent) ){
                             contientGP = true;
                         }
                     }
