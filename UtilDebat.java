@@ -146,12 +146,6 @@ public class UtilDebat {
 
 
 
-
-
-
-
-
-
     /** La méthode demande à l'utilisateur combien d'arguments il souhaite ajouter
      * puis crée une listeArgument avec les arguments numérotés [A0,...,An]
      *
