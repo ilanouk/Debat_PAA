@@ -21,43 +21,6 @@ import java.util.StringTokenizer;
 public class UtilDebat {
 
 
-    public static boolean serpent(Argument arg,ArrayList<Argument> EnsembleE, ArrayList<Argument > dejaVu){
-        boolean parentDansEnsembleE = true;
-        dejaVu.add(arg);
-        System.out.println("Ensemble e : " +EnsembleE);
-
-        for (Argument parent : arg.getlisteParent()){
-            if(EnsembleE.contains(parent)){
-                parentDansEnsembleE = false;
-            }
-        }
-
-        if (arg.getlisteParent().isEmpty() ){
-            return true;
-        }
-
-        
-        
-        else if (!parentDansEnsembleE){
-            return true;
-        }
-        else{
-            System.out.println(dejaVu);
-            if (dejaVu.contains(arg)){
-                return false;
-            }
-            
-            else if (!serpent(arg.getlisteParent().get(0),EnsembleE,dejaVu)){
-                
-                return false;
-            }
-            else{
-                return true;
-            }
-        }
-
-    }
-
     /** La méthode vérifie si l'ensemble est une solution admissible
      * et retourne un message indiquant quelle est la cause du problème ou si la solution est admissible
      *
@@ -76,60 +39,54 @@ public class UtilDebat {
         else{
             //Rechecher si 2 arguments se contredisent
             for( Argument arg1 : ensembleE){
-                for( Contradiction contr1 : arg1.getlistContradiction()){
+                for (Argument parent : arg1.getlisteParent()){
+                    if(ensembleE.contains(parent)){
+                        admissible = false;
+                        return ("Il y a une contradiction entre " + arg1 + " et " + parent);
+                    }
+                }
 
-                    Argument arg2 = contr1.getArrivee();
-                    Contradiction c1 = new Contradiction(arg2, arg1);
-                    
-                    if(ensembleE.contains(arg2)){
-                        for( Contradiction contr2 : arg2.getlistContradiction()){
-                            if( contr2.isEqual(c1)){
-                                admissible=false;
-                                return (arg1 + " et " + arg2 + " se contredisent");
+            }
+        }
 
-                            }
+            //Revommencer 
+            //Verifier si parent pas dans solution
+
+          
+
+            
+
+        // Rechercher si un argument n'est pas défendu face à toutes ses contradictions
+        /*
+            * pour tout argument a qui contredit un élément de E , il existe un
+            * élément de E qui contredit a ; on dit alors que E se défend contre a
+        */
+        Argument argum = null;
+        
+        for(Argument arg1 : ensembleE){
+            boolean contientGP = false;
+            for (Argument parent : arg1.getlisteParent()){
+                if(parent.getlisteParent().isEmpty() ){
+                    admissible = false;
+                    argum = arg1;
+
+                }
+                else{
+                    for (Argument grandPere : parent.getlisteParent()){
+                        if (ensembleE.contains(grandPere) && arg1.getlisteParent().contains(parent)){
+                            contientGP = true;
                         }
                     }
-                    
-                }
-            }
-
-            
-
-            // Rechercher si un argument n'est pas défendu face à toutes ses contradictions
-            /*
-                * pour tout argument a qui contredit un élément de E , il existe un
-                * élément de E qui contredit a ; on dit alors que E se défend contre a
-            */
-            Argument argum = null;
-            Argument argumSerpent = ensembleE.get(0);
-            
-            for(Argument arg1 : ensembleE){
-                boolean contientGP = false;
-                for (Argument parent : arg1.getlisteParent()){
-                    if(parent.getlisteParent().isEmpty() ){
+                    if (!contientGP){
                         admissible = false;
                         argum = arg1;
 
                     }
-                    else{
-                        for (Argument grandPere : parent.getlisteParent()){
-                            if (ensembleE.contains(grandPere) && arg1.getlisteParent().contains(parent)){
-                                contientGP = true;
-                            }
-                        }
-                        if (!contientGP){
-                            admissible = false;
-                            argum = arg1;
-
-                        }
-                    }
                 }
             }
             
-            if(serpent(argumSerpent, ensembleE,new ArrayList<Argument>())){
-                 admissible = false;
-             }
+        }
+  
            
             if( admissible ){
                 return("Admissible");
@@ -138,7 +95,6 @@ public class UtilDebat {
                 return (" Dans la solution " + ensembleE+", l'argument "+argum +" n'est pas défendu");
             }
              
-        }
     }
      /** La méthode crée une contradiction entre l'argument identifié par le string strDepart et l'argument identifié par le string strArrivee
      * 
@@ -542,11 +498,13 @@ public class UtilDebat {
             listTmp.remove(i); // On supprime la liste de référence de la liste des solutions pour ne pas la comparer avec elle même
 
             for(ArrayList<Argument> list : listTmp){
-                if(!listRef.containsAll(list)){ // Si la liste de référence ne contient pas tous les arguments de la liste que l'on compare
-                    contient=true;
+                for(Argument argument : list){
+                    if(!listRef.contains(argument)){ // Si l'argument n'est pas dans la liste de référence et n'est pas dans la solution maximale
+                        contient=true;
+                    }
                 }
 
-                if(contient && !solMax.containsAll(listRef)){ // alors on ajoute la liste à la liste des solutions maximales
+                if(contient && !solMax.containsAll(listRef) ){ // alors on ajoute la liste à la liste des solutions maximales
                     for(Argument argument : list){
                         solMax.add(argument);
                     }
