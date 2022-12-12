@@ -144,6 +144,7 @@ public class Main {
                         solDejaDemande = true;
                          ensembleE =UtilDebat.solutionPref(dejaVuPref,listeSolution);
                          if(ensembleE==null){
+                            dejaVuPref.clear();
                             ensembleE =UtilDebat.solutionPref(dejaVuPref,listeSolution);
                          }
                          String chaine="";
@@ -163,6 +164,7 @@ public class Main {
 
                     else if (choix ==3){// Sauvegarder la solution
                         if (solDejaDemande){
+                            ensembleE =UtilDebat.solutionAdmissible(dejaVuPref, listeSolution);
                             System.out.println("Veuiller entrer le chemin du fichier ");
                             sc.nextLine(); //on vide le buffer
                             String lien =sc.nextLine();

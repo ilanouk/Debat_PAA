@@ -371,7 +371,7 @@ public class UtilDebat {
                 if (ensembleE.isEmpty()){
                    chaine = "Ensemble vide";
                }
-                bf.write(chaine );
+                bf.write(ensembleE.toString() );
             
             bf.close();
         }
@@ -485,32 +485,57 @@ public class UtilDebat {
 
         ArrayList<Argument> solMax = new ArrayList<>();
         ArrayList<ArrayList<Argument>> listTmp = new ArrayList<>();
-        ArrayList<Argument> listRef = new ArrayList<>();
+        ArrayList<ArrayList<Argument>> listRef = new ArrayList<>();
         boolean contient = false;
 
-        // On parcours la liste des solutions
-        for(int i=0;i<listeSolution.size();i++){
-            listTmp = listeSolution;
-            listRef=listeSolution.get(i); //La liste de référence stocke la liste d'argument que l'on va comparer avec les autres listes
-            listTmp.remove(i); // On supprime la liste de référence de la liste des solutions pour ne pas la comparer avec elle même
+        listRef.addAll(listeSolution);
+        listTmp.addAll(listeSolution);
 
-            for(ArrayList<Argument> list : listTmp){
-                for(Argument argument : list){
-                    if(!listRef.contains(argument)){ // Si l'argument n'est pas dans la liste de référence et n'est pas dans la solution maximale
-                        contient=true;
+        for( ArrayList<Argument> list : listRef ){
+            for( ArrayList<Argument> list2 : listRef ){
+                if( !list.equals(list2) ){
+                    if(list.containsAll(list2)){
+                        listTmp.remove(list2);
+                        break;
+                    }
+                    else if( list2.containsAll(list) ){
+                        listTmp.remove(list);
+                        break;
                     }
                 }
-
-                if(contient && !solMax.containsAll(listRef) ){ // alors on ajoute la liste à la liste des solutions maximales
-                    for(Argument argument : list){
-                        solMax.add(argument);
-                    }
-                    return solMax; 
-                }
-                
+            }
+        }
+        for( ArrayList<Argument> liste : listTmp ){
+            if( !dejaVu.contains(liste) ){
+                dejaVu.add(liste);
+                return liste;
             }
         }
         return null;
+
+        // On parcours la liste des solutions
+        // for(int i=0;i<listeSolution.size();i++){
+        //     listTmp = listeSolution;
+        //     listRef=listeSolution.get(i); //La liste de référence stocke la liste d'argument que l'on va comparer avec les autres listes
+        //     listTmp.remove(i); // On supprime la liste de référence de la liste des solutions pour ne pas la comparer avec elle même
+
+        //     for(ArrayList<Argument> list : listTmp){
+        //         for(Argument argument : list){
+        //             if(!listRef.contains(argument) && !solMax.contains(argument) ){ // Si l'argument n'est pas dans la liste de référence et n'est pas dans la solution maximale
+        //                 contient=true;
+        //             }
+        //         }
+
+        //         if(contient && !solMax.containsAll(list) ){ // alors on ajoute la liste à la liste des solutions maximales
+        //             for(Argument argument : list){
+        //                 solMax.add(argument);
+        //             }
+        //             return solMax; 
+        //         }
+                
+        //     }
+        // }
+        // return null;
     }
 
 
