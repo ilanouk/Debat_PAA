@@ -127,6 +127,12 @@ public class UtilDebat {
         return true;
     }
 
+    /** La méthode demande à l'utilisateur de rentrer les arguments qui se contredisent
+     * et crée une contradiction entre ces arguments
+     *
+     * @param sc
+     * @param listeArgument
+     */
     public static void ajoutContradictionSc(Scanner sc,ArrayList<Argument> listeArgument){
         System.out.println("Entrez l'argument cible puis l'argument qu'il contredit ex : A0 A1");
         String strDepart = sc.next();
@@ -340,7 +346,7 @@ public class UtilDebat {
 
     }
 
-    /*
+    /**
      * La méthode prend en argument un ensemble d'arguments et permet de le sauvegarder dans un fichier correspondant au à lienFichier.
      * 
      * @param ensembleE
@@ -483,10 +489,8 @@ public class UtilDebat {
      */
     public static ArrayList<Argument> solutionPref(ArrayList<ArrayList<Argument>> dejaVu, ArrayList<ArrayList<Argument>> listeSolution){
 
-        ArrayList<Argument> solMax = new ArrayList<>();
         ArrayList<ArrayList<Argument>> listTmp = new ArrayList<>();
         ArrayList<ArrayList<Argument>> listRef = new ArrayList<>();
-        boolean contient = false;
 
         listRef.addAll(listeSolution);
         listTmp.addAll(listeSolution);
@@ -512,30 +516,6 @@ public class UtilDebat {
             }
         }
         return null;
-
-        // On parcours la liste des solutions
-        // for(int i=0;i<listeSolution.size();i++){
-        //     listTmp = listeSolution;
-        //     listRef=listeSolution.get(i); //La liste de référence stocke la liste d'argument que l'on va comparer avec les autres listes
-        //     listTmp.remove(i); // On supprime la liste de référence de la liste des solutions pour ne pas la comparer avec elle même
-
-        //     for(ArrayList<Argument> list : listTmp){
-        //         for(Argument argument : list){
-        //             if(!listRef.contains(argument) && !solMax.contains(argument) ){ // Si l'argument n'est pas dans la liste de référence et n'est pas dans la solution maximale
-        //                 contient=true;
-        //             }
-        //         }
-
-        //         if(contient && !solMax.containsAll(list) ){ // alors on ajoute la liste à la liste des solutions maximales
-        //             for(Argument argument : list){
-        //                 solMax.add(argument);
-        //             }
-        //             return solMax; 
-        //         }
-                
-        //     }
-        // }
-        // return null;
     }
 
 
