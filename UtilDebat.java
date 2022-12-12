@@ -57,8 +57,9 @@ public class UtilDebat {
         Argument argum = null;
         
         for(Argument arg1 : ensembleE){
-            boolean contientGP = false;
+            
             for (Argument parent : arg1.getlisteParent()){
+                boolean contientGP = false;
                 if(parent.getlisteParent().isEmpty() ){
                     admissible = false;
                     argum = arg1;
@@ -66,8 +67,9 @@ public class UtilDebat {
                 }
                 else{
                     for (Argument grandPere : parent.getlisteParent()){
-                        if (ensembleE.contains(grandPere) && arg1.getlisteParent().contains(parent) ){
+                        if (ensembleE.contains(grandPere)){
                             contientGP = true;
+                            
                         }
                     }
                     if (!contientGP){
@@ -356,13 +358,21 @@ public class UtilDebat {
             BufferedWriter bf = new BufferedWriter(fw);
           
             // Afficher l'ensembleE + admissible ou pas
-            String str = UtilDebat.verifSolution(ensembleE);
-            if (str.equals("Admissible")){
-                bf.write("L'ensemble " +ensembleE+" est une solution admissible" );
-            }
-            else{
-                bf.write(UtilDebat.verifSolution(ensembleE));
-            }
+            
+                String chaine = "";
+                for (int i=0; i<ensembleE.size();i++){
+                    chaine+=ensembleE.get(i);
+                    if(ensembleE.size()-1!=i){
+                       chaine += ",";
+                    }
+                    
+                    
+                }
+                if (ensembleE.isEmpty()){
+                   chaine = "Ensemble vide";
+               }
+                bf.write(chaine );
+            
             bf.close();
         }
 

@@ -125,7 +125,19 @@ public class Main {
                             dejaVu.clear();
                             solAdmissible =UtilDebat.solutionAdmissible(dejaVu,listeSolution);
                         }
-                        System.out.println("solution admissible : "+solAdmissible);
+                        String chaine = "";
+                        for (int i=0; i<solAdmissible.size();i++){
+                            chaine+=solAdmissible.get(i);
+                            if(solAdmissible.size()-1!=i){
+                                chaine += ",";
+                             }
+
+                            
+                        }
+                        if (solAdmissible.isEmpty()){
+                            chaine = "Ensemble vide";
+                        }
+                        System.out.println("solution admissible : "+chaine);
                     }
 
                     else if (choix ==2){
@@ -134,7 +146,19 @@ public class Main {
                          if(ensembleE==null){
                             ensembleE =UtilDebat.solutionPref(dejaVuPref,listeSolution);
                          }
-                         System.out.println("solution préférée : "+ensembleE);   
+                         String chaine="";
+                         for (int i=0; i<ensembleE.size();i++){
+                             chaine+=ensembleE.get(i);
+                             if(ensembleE.size()-1!=i){
+                                chaine += ",";
+                             }
+                             
+                             
+                         }
+                         if (ensembleE.isEmpty()){
+                            chaine = "Ensemble vide";
+                        }
+                         System.out.println("solution préférée : "+chaine);   
                     }
 
                     else if (choix ==3){// Sauvegarder la solution
